@@ -1,0 +1,55 @@
+# Visual Studio/VSCode
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.lib
+*.a
+*.out
+*.app
+
+# Build artifacts
+build/
+Debug/
+Release/
+x64/
+x86/
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.pch
+*.ipch
+*.bsc
+*.cache
+*.exp
+
+# System files
+.DS_Store
+Thumbs.db
+*.lnk
+
+# Logs and diagnostics
+*.log
+*.tlog
+*.sass-cache
+*.jfm
+
+# Local development
+*.local
+env/
+venv/
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*~
