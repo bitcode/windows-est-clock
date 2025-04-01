@@ -47,6 +47,7 @@ Thumbs.db
 *.local
 env/
 venv/
+tmp-git-commit-msg.txt
 
 # Backup files
 *.bak

@@ -1,18 +1,21 @@
 #include <windows.h>
 #include <tchar.h>
 #include <strsafe.h> // For StringCchPrintf
+#include <shellapi.h> // For Shell_NotifyIcon
 
 #define WINDOW_CLASS_NAME _T("ESTOverlayClockClass")
 #define WINDOW_TITLE _T("EST Overlay Clock")
 #define TIMER_ID 1 // Identifier for our timer
 #define IDM_TOGGLE_FORMAT 101
 #define IDM_EXIT 102
+#define WM_TRAYICON (WM_USER + 1) // Custom message for tray icon
 
 // Global variables
 HWND g_hwnd = NULL;
 SYSTEMTIME g_etTime; // Stores the current Eastern Time
 HFONT g_hFont = NULL;
 bool g_use12HourFormat = false; // Default to 24-hour format
+NOTIFYICONDATA g_nid = {0}; // Notification icon data
 
 // Forward declaration of the window procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -108,7 +111,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Position bottom-right for now, adjust as needed
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-    int windowWidth = 200;
+    int windowWidth = 200; // Default width for 24-hour format
     int windowHeight = 50;
     int posX = screenWidth - windowWidth - 20; // 20px padding
     int posY = screenHeight - windowHeight - 50; // 50px padding from bottom (taskbar)
@@ -162,6 +165,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             SetTimer(hwnd, TIMER_ID, 1000, NULL);
             // Initial time update
             UpdateTime(hwnd);
+            
+            // Initialize and add the tray icon
+            g_nid.cbSize = sizeof(NOTIFYICONDATA);
+            g_nid.hWnd = hwnd;
+            g_nid.uID = 1;  // Arbitrary ID
+            g_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+            g_nid.uCallbackMessage = WM_TRAYICON;
+            g_nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);  // Default icon
+            StringCchCopy(g_nid.szTip, ARRAYSIZE(g_nid.szTip), _T("EST Clock"));
+            
+            Shell_NotifyIcon(NIM_ADD, &g_nid);
         }
         break;
 
@@ -200,10 +214,10 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 int hour12 = g_etTime.wHour % 12;
                 if (hour12 == 0) hour12 = 12; // Handle midnight (0 -> 12) and noon (12 -> 12)
                 LPCTSTR ampm = (g_etTime.wHour < 12) ? _T("AM") : _T("PM");
-                StringCchPrintf(timeText, 50, _T("%d:%02d:%02d %s ET"),
+                StringCchPrintf(timeText, 50, _T("%d:%02d:%02d %s EST"),
                     hour12, g_etTime.wMinute, g_etTime.wSecond, ampm);
             } else {
-                StringCchPrintf(timeText, 50, _T("%02d:%02d:%02d ET"),
+                StringCchPrintf(timeText, 50, _T("%02d:%02d:%02d EST"),
                     g_etTime.wHour, g_etTime.wMinute, g_etTime.wSecond);
             }
 
@@ -222,6 +236,47 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                 return HTCAPTION; // Treat client area as caption for dragging
             }
             return hit;
+        }
+        break;
+        
+    case WM_TRAYICON:
+        {
+            if (lParam == WM_RBUTTONUP || lParam == WM_CONTEXTMENU) {
+                // Display context menu when right-clicking the tray icon
+                POINT pt;
+                GetCursorPos(&pt);
+                
+                // Create popup menu
+                HMENU hMenu = CreatePopupMenu();
+                if (hMenu) {
+                    // Add menu items
+                    AppendMenu(hMenu, MF_STRING, IDM_TOGGLE_FORMAT,
+                        g_use12HourFormat ? _T("Switch to 24-hour") : _T("Switch to 12 AM/PM"));
+                    AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
+                    AppendMenu(hMenu, MF_STRING, IDM_EXIT, _T("Exit"));
+                    
+                    // Required to make menu work with SetForegroundWindow
+                    SetForegroundWindow(hwnd);
+                    
+                    // Display the menu
+                    TrackPopupMenu(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN,
+                        pt.x, pt.y, 0, hwnd, NULL);
+                    
+                    // MSDN recommends sending this message after TrackPopupMenu
+                    PostMessage(hwnd, WM_NULL, 0, 0);
+                    
+                    DestroyMenu(hMenu);
+                }
+            }
+            else if (lParam == WM_LBUTTONUP || lParam == WM_LBUTTONDBLCLK) {
+                // Show/hide the main window when left-clicking the tray icon
+                if (IsWindowVisible(hwnd)) {
+                    ShowWindow(hwnd, SW_HIDE);
+                } else {
+                    ShowWindow(hwnd, SW_SHOW);
+                    SetForegroundWindow(hwnd);
+                }
+            }
         }
         break;
 
@@ -247,8 +302,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     case WM_COMMAND:
         switch (LOWORD(wParam)) {
             case IDM_TOGGLE_FORMAT:
-                g_use12HourFormat = !g_use12HourFormat;
-                InvalidateRect(hwnd, NULL, TRUE); // Force repaint with new format
+                {
+                    g_use12HourFormat = !g_use12HourFormat;
+                    
+                    // Adjust window width based on format
+                    RECT rect;
+                    GetWindowRect(hwnd, &rect);
+                    int screenWidth = GetSystemMetrics(SM_CXSCREEN);
+                    int newWidth = g_use12HourFormat ? 240 : 200; // Wider for 12-hour format
+                    
+                    // Reposition window to maintain right edge alignment
+                    int newX = screenWidth - newWidth - 20; // 20px padding
+                    
+                    // Resize and reposition the window
+                    SetWindowPos(hwnd, NULL, newX, rect.top, newWidth, rect.bottom - rect.top,
+                                 SWP_NOZORDER | SWP_NOACTIVATE);
+                    
+                    InvalidateRect(hwnd, NULL, TRUE); // Force repaint with new format
+                }
                 break;
             case IDM_EXIT:
                 DestroyWindow(hwnd);
@@ -257,6 +328,9 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
         break;
 
     case WM_DESTROY:
+        // Remove the tray icon
+        Shell_NotifyIcon(NIM_DELETE, &g_nid);
+        
         KillTimer(hwnd, TIMER_ID); // Clean up the timer
         if (g_hFont) {
             DeleteObject(g_hFont); // Clean up the font
