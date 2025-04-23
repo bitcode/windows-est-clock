@@ -42,6 +42,25 @@ Alternatively, you can turn on "Always show all icons in the notification area" 
 - Draggable window positioning
 - Semi-transparent overlay stays on top of other windows
 
+## Releases
+
+The latest version of EST Clock is always available on the [Releases](https://github.com/yourusername/EST-clock/releases) page. Simply download the `windows-est-clock-portable.exe` file and run it.
+
+### Creating a New Release
+
+For project maintainers, a new release can be created using the included script:
+
+```powershell
+.\create_release.bat
+```
+
+This script will:
+1. Build the application
+2. Ask for a version number
+3. Collect release notes
+4. Create and push a Git tag
+5. Trigger the GitHub Actions workflow to create the release
+
 ## For Developers: Building from Source
 
 ### Prerequisites
