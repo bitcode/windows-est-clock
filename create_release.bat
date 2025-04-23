@@ -59,9 +59,27 @@ if "%VERSION%"=="" (
     exit /b 1
 )
 
-REM Check for valid semver format (X.Y.Z)
-echo %VERSION% | findstr /r "^[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$" > nul
-if %ERRORLEVEL% NEQ 0 (
+REM Manual version validation
+set "VALID=true"
+
+REM Split the version into parts
+for /f "tokens=1-3 delims=." %%a in ("%VERSION%") do (
+    set "MAJOR=%%a"
+    set "MINOR=%%b"
+    set "PATCH=%%c"
+)
+
+REM Check if any part is missing
+if "%MAJOR%"=="" set "VALID=false"
+if "%MINOR%"=="" set "VALID=false"
+if "%PATCH%"=="" set "VALID=false"
+
+REM Check if any part is not a number
+echo %MAJOR% | findstr /r "^[0-9]*$" > nul || set "VALID=false"
+echo %MINOR% | findstr /r "^[0-9]*$" > nul || set "VALID=false"
+echo %PATCH% | findstr /r "^[0-9]*$" > nul || set "VALID=false"
+
+if "%VALID%"=="false" (
     echo ERROR: Invalid version format. Please use semantic versioning (e.g., 1.0.0)
     echo You entered: "%VERSION%"
     exit /b 1
