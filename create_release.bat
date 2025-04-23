@@ -44,6 +44,7 @@ call build.bat
 REM Check if the build was successful
 if not exist build\windows-est-clock-portable.exe (
     echo ERROR: Build failed! Executable not found.
+    echo Please check the build output for errors.
     exit /b 1
 )
 echo Build successful!
@@ -53,9 +54,16 @@ REM Ask for version number
 set /p VERSION="Enter version number (e.g., 1.0.0): "
 
 REM Validate version number format (basic check)
+if "%VERSION%"=="" (
+    echo ERROR: Version number cannot be empty.
+    exit /b 1
+)
+
+REM Check for valid semver format (X.Y.Z)
 echo %VERSION% | findstr /r "^[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$" > nul
 if %ERRORLEVEL% NEQ 0 (
     echo ERROR: Invalid version format. Please use semantic versioning (e.g., 1.0.0)
+    echo You entered: "%VERSION%"
     exit /b 1
 )
 

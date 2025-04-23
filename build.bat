@@ -12,6 +12,19 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo Compiling release build...
+
+REM Check if the output file exists and try to delete it first
+if exist build\windows-est-clock-portable.exe (
+    echo Output file exists, attempting to remove it...
+    del /F /Q build\windows-est-clock-portable.exe
+    if exist build\windows-est-clock-portable.exe (
+        echo Warning: Could not remove existing executable. It may be in use.
+        echo Please close any running instances of the application and try again.
+        tasklist | findstr windows-est-clock-portable.exe
+        exit /b 1
+    )
+)
+
 C:\mingw64\bin\g++.exe -O2 -DUNICODE -D_UNICODE main.cpp build\resource.res -o build\windows-est-clock-portable.exe -lgdi32 -lshell32 -lcomctl32 -mwindows
 if %ERRORLEVEL% NEQ 0 (
     echo Release build failed with error code %ERRORLEVEL%
