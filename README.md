@@ -1,6 +1,36 @@
 # Windows EST Clock
 
-A native Windows desktop clock application displaying Eastern Time (ET) with clean visuals and minimal system impact.
+A simple desktop clock application displaying Eastern Time (ET) with clean visuals and minimal system impact.
+
+![EST Clock Screenshot](docs/screenshot.png)
+
+## Quick Start Guide (For All Users)
+
+### Installation
+No installation required! Simply download and run:
+
+1. Download the latest `windows-est-clock-portable.exe` from the [Releases](https://github.com/yourusername/EST-clock/releases) page
+2. Double-click the downloaded file to run it
+3. The clock will appear on your screen and an icon will be added to your system tray
+
+### Making Sure You Can See the System Tray Icon
+
+**Important:** Windows may automatically hide the system tray icon. To make it visible:
+
+1. Right-click on the Windows taskbar
+2. Select "Taskbar settings"
+3. Scroll down to "Notification area"
+4. Click on "Select which icons appear on the taskbar"
+5. Find "Eastern Time Clock Overlay" in the list and toggle it to "On"
+
+![System Tray Settings](docs/system_tray_settings.png)
+
+Alternatively, you can turn on "Always show all icons in the notification area" to display all system tray icons.
+
+### Basic Usage
+- Left-click the tray icon to show/hide the clock window
+- Right-click the tray icon for options (12/24-hour format, exit)
+- Click and drag the clock to position it anywhere on your screen
 
 ## Features
 - Accurate Eastern Time display (automatically adjusts for daylight saving)
@@ -11,14 +41,15 @@ A native Windows desktop clock application displaying Eastern Time (ET) with cle
 - Toggle between 12-hour and 24-hour time formats
 - Draggable window positioning
 - Semi-transparent overlay stays on top of other windows
-## Installation (Compiling from Source)
+
+## For Developers: Building from Source
 
 ### Prerequisites
 - Windows 10/11
 - g++ compiler from WinLibs (MinGW-w64)
 - GDI32 libraries (included with Windows)
 
-#### Installing the g++ Compiler
+### Installing the g++ Compiler
 You **must** install the g++ compiler from https://winlibs.com/ to build this project:
 
 1. Visit [WinLibs.com](https://winlibs.com/)
@@ -41,33 +72,62 @@ This project uses Windows-specific API functions and requires a compiler that pr
 ### Build Steps
 1. Clone this repository:
    ```powershell
-   git clone https://github.com/bitcode/EST-clock.git
+   git clone https://github.com/yourusername/EST-clock.git
    cd EST-clock
    ```
-2. Compile the application:
+
+2. Use the build script:
    ```powershell
-   g++ -g -DUNICODE -D_UNICODE main.cpp -o est_clock.exe -lgdi32
+   .\build.bat
    ```
-   
-   For a release build with optimizations:
+
+   This will create both release and debug builds in the `build` directory.
+
+3. Alternatively, compile manually:
    ```powershell
-   g++ -O2 -DUNICODE -D_UNICODE main.cpp -o est_clock.exe -lgdi32
+   # First compile the resource file
+   C:\mingw64\bin\windres resource.rc -O coff -o resource.res
+
+   # Then compile and link everything together
+   C:\mingw64\bin\g++.exe -O2 -DUNICODE -D_UNICODE main.cpp resource.res -o est_clock.exe -lgdi32 -lshell32 -lcomctl32 -mwindows
    ```
-3. Run the executable:
+
+4. Run the executable:
    ```powershell
-   .\est_clock.exe
+   .\build\windows-est-clock-portable.exe
    ```
-   ```
-## Usage
-- The application displays a transparent clock showing Eastern Time
-- The clock window can be dragged to any position on the screen
-- The application runs in the system tray
-- Left-click the tray icon to show/hide the clock window
-- Right-click the tray icon for options:
-  - Toggle between 12-hour and 24-hour time formats
-  - Exit application
-- Right-click the clock window for the same options
-  - Exit application
+
+## Advanced Usage
+
+- Right-click the clock window for the same options as the tray icon
+- The clock automatically adjusts for daylight saving time changes
+- The semi-transparent window stays on top of other applications
+
+## Project Structure
+- `main.cpp` - Main application code
+- `resource.h` and `resource.rc` - Resource definitions
+- `windows-est-clock.ico` - Application icon
+- `build.bat` - Build script
+- `docs/` - Documentation
+  - `ARCHITECTURE.md` - Detailed architecture documentation
+
+## Contributing
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Debugging
+For debugging, use the debug build:
+```powershell
+.\build\est_clock_debug.exe
+```
+
+You can use GDB for debugging:
+```powershell
+gdb .\build\est_clock_debug.exe
+```
+
+The project includes a `.vscode/launch.json` file with preconfigured debug settings.
 
 ## Future Plans
 - [ ] Create pre-built .exe installer
@@ -77,20 +137,9 @@ This project uses Windows-specific API functions and requires a compiler that pr
 - [ ] Add opacity control
 - [ ] Support for multiple monitor setups
 
-## Contributing
-Pull requests welcome! Please ensure:
-- Code follows existing style
-- Changes are Windows-compatible
-- No external dependencies are introduced
-- All code compiles with the g++ compiler from WinLibs
+## Versioning
 
-## Debugging
-For debugging, compile with debug symbols:
-```powershell
-g++ -g -DUNICODE -D_UNICODE main.cpp -o main_debug.exe -lgdi32
-```
+This project follows Semantic Versioning. For details on the versioning strategy, see [docs/VERSIONING.md](docs/VERSIONING.md).
 
-You can use GDB for debugging:
-```powershell
-gdb main_debug.exe
-```
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

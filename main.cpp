@@ -1,8 +1,21 @@
+/*
+ * EST Clock - A transparent Eastern Time clock for Windows
+ * Copyright (c) 2025 EST Clock Contributors
+ *
+ * This software is released under the MIT License.
+ * See the LICENSE file for details.
+ */
+
 #include <windows.h>
 #include <tchar.h>
 #include <strsafe.h> // For StringCchPrintf
 #include <shellapi.h> // For Shell_NotifyIcon
+#include <commctrl.h> // For NOTIFYICONDATA_V2_SIZE and NOTIFYICON_VERSION
+#include "resource.h" // Include resource definitions (IDI_APPICON)
 
+// Ensure we're using the correct version of the Windows Common Controls
+#pragma comment(lib, "comctl32.lib")
+#pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #define WINDOW_CLASS_NAME _T("ESTOverlayClockClass")
 #define WINDOW_TITLE _T("EST Overlay Clock")
 #define TIMER_ID 1 // Identifier for our timer
@@ -14,8 +27,8 @@
 HWND g_hwnd = NULL;
 SYSTEMTIME g_etTime; // Stores the current Eastern Time
 HFONT g_hFont = NULL;
-bool g_use12HourFormat = false; // Default to 24-hour format
-NOTIFYICONDATA g_nid = {0}; // Notification icon data
+bool g_use12HourFormat = true; // Default to 12-hour format
+NOTIFYICONDATA g_nid; // Notification icon data
 
 // Forward declaration of the window procedure
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -84,6 +97,11 @@ void UpdateTime(HWND hwnd) {
     InvalidateRect(hwnd, NULL, TRUE); // TRUE to erase background
 }
 
+// Helper function to calculate window width based on format
+int GetWindowWidthForFormat(bool use12HourFormat) {
+    return use12HourFormat ? 240 : 200; // Wider for 12-hour format
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     WNDCLASSEX wc;
     MSG msg;
@@ -95,12 +113,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = hInstance;
-    wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+    wc.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPICON)); // Use embedded icon
     wc.hCursor = LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground = NULL; // Prevent system background painting
     wc.lpszMenuName = NULL;
     wc.lpszClassName = WINDOW_CLASS_NAME;
-    wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+    wc.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPICON)); // Use embedded icon
 
     if (!RegisterClassEx(&wc)) {
         MessageBox(NULL, _T("Window Registration Failed!"), _T("Error!"), MB_ICONEXCLAMATION | MB_OK);
@@ -111,7 +129,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     // Position bottom-right for now, adjust as needed
     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
     int screenHeight = GetSystemMetrics(SM_CYSCREEN);
-    int windowWidth = 200; // Default width for 24-hour format
+    int windowWidth = g_use12HourFormat ? 240 : 200; // Set width based on format
     int windowHeight = 50;
     int posX = screenWidth - windowWidth - 20; // 20px padding
     int posY = screenHeight - windowHeight - 50; // 50px padding from bottom (taskbar)
@@ -165,23 +183,128 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             SetTimer(hwnd, TIMER_ID, 1000, NULL);
             // Initial time update
             UpdateTime(hwnd);
-            
-            // Initialize and add the tray icon
+
+            // Initialize Common Controls (required for modern Windows UI elements)
+            INITCOMMONCONTROLSEX icex;
+            icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+            icex.dwICC = ICC_WIN95_CLASSES;
+            InitCommonControlsEx(&icex);
+
+            // Create the tray icon immediately instead of using a timer
+            // Initialize the tray icon
+            ZeroMemory(&g_nid, sizeof(NOTIFYICONDATA));
             g_nid.cbSize = sizeof(NOTIFYICONDATA);
             g_nid.hWnd = hwnd;
-            g_nid.uID = 1;  // Arbitrary ID
+            g_nid.uID = 1;
             g_nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
             g_nid.uCallbackMessage = WM_TRAYICON;
-            g_nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);  // Default icon
+
+            // Try multiple approaches to load the icon
+            HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE);
+
+            // Get system metrics for small icon size
+            int iconX = GetSystemMetrics(SM_CXSMICON);
+            int iconY = GetSystemMetrics(SM_CYSMICON);
+
+            // Approach 1: Try to load the icon directly from the file
+            g_nid.hIcon = (HICON)LoadImage(
+                NULL,
+                _T("windows-est-clock.ico"),
+                IMAGE_ICON,
+                iconX,
+                iconY,
+                LR_LOADFROMFILE | LR_DEFAULTCOLOR
+            );
+
+            // Approach 2: If that fails, try to load from resource with specific size
+            if (g_nid.hIcon == NULL) {
+                g_nid.hIcon = (HICON)LoadImage(
+                    hInstance,
+                    MAKEINTRESOURCE(IDI_APPICON),
+                    IMAGE_ICON,
+                    iconX,
+                    iconY,
+                    LR_DEFAULTCOLOR
+                );
+            }
+
+            // Approach 3: If that fails, try LoadIcon
+            if (g_nid.hIcon == NULL) {
+                g_nid.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_APPICON));
+            }
+
+            // If all approaches fail, fall back to system icon
+            if (g_nid.hIcon == NULL) {
+                g_nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+                OutputDebugString(_T("Failed to load custom icon, using system icon"));
+            }
+
+            // Set tooltip
             StringCchCopy(g_nid.szTip, ARRAYSIZE(g_nid.szTip), _T("EST Clock"));
-            
-            Shell_NotifyIcon(NIM_ADD, &g_nid);
+
+            // Add the icon
+            BOOL result = Shell_NotifyIcon(NIM_ADD, &g_nid);
+
+            // Set a timer to periodically refresh the icon
+            SetTimer(hwnd, 4, 10000, NULL); // Timer ID 4, refresh every 10 seconds
+
+            // Debug message
+            OutputDebugString(result ? _T("Tray icon added successfully") : _T("Failed to add tray icon"));
         }
         break;
 
     case WM_TIMER:
         if (wParam == TIMER_ID) {
             UpdateTime(hwnd);
+        }
+        else if (wParam == 4) { // Icon refresh timer
+            // Periodically refresh the icon to ensure it stays visible
+            // Update both the icon and tooltip
+            g_nid.uFlags = NIF_ICON | NIF_TIP;
+
+            // Make sure we still have a valid icon
+            if (g_nid.hIcon == NULL) {
+                // Try to reload the icon
+                HINSTANCE hInstance = (HINSTANCE)GetWindowLongPtr(hwnd, GWLP_HINSTANCE);
+                int iconX = GetSystemMetrics(SM_CXSMICON);
+                int iconY = GetSystemMetrics(SM_CYSMICON);
+
+                // Try from file first
+                g_nid.hIcon = (HICON)LoadImage(
+                    NULL,
+                    _T("windows-est-clock.ico"),
+                    IMAGE_ICON,
+                    iconX,
+                    iconY,
+                    LR_LOADFROMFILE | LR_DEFAULTCOLOR
+                );
+
+                // If that fails, try from resource
+                if (g_nid.hIcon == NULL) {
+                    g_nid.hIcon = (HICON)LoadImage(
+                        hInstance,
+                        MAKEINTRESOURCE(IDI_APPICON),
+                        IMAGE_ICON,
+                        iconX,
+                        iconY,
+                        LR_DEFAULTCOLOR
+                    );
+                }
+
+                // If still NULL, use system icon
+                if (g_nid.hIcon == NULL) {
+                    g_nid.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+                }
+            }
+
+            // Update tooltip with current time
+            TCHAR timeText[50];
+            StringCchPrintf(timeText, 50, _T("EST Clock - %02d:%02d:%02d"),
+                g_etTime.wHour, g_etTime.wMinute, g_etTime.wSecond);
+            StringCchCopy(g_nid.szTip, ARRAYSIZE(g_nid.szTip), timeText);
+
+            // Apply the updates
+            Shell_NotifyIcon(NIM_MODIFY, &g_nid);
         }
         break;
 
@@ -238,14 +361,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             return hit;
         }
         break;
-        
+
     case WM_TRAYICON:
         {
             if (lParam == WM_RBUTTONUP || lParam == WM_CONTEXTMENU) {
                 // Display context menu when right-clicking the tray icon
                 POINT pt;
                 GetCursorPos(&pt);
-                
+
                 // Create popup menu
                 HMENU hMenu = CreatePopupMenu();
                 if (hMenu) {
@@ -254,17 +377,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                         g_use12HourFormat ? _T("Switch to 24-hour") : _T("Switch to 12 AM/PM"));
                     AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
                     AppendMenu(hMenu, MF_STRING, IDM_EXIT, _T("Exit"));
-                    
+
                     // Required to make menu work with SetForegroundWindow
                     SetForegroundWindow(hwnd);
-                    
+
                     // Display the menu
                     TrackPopupMenu(hMenu, TPM_BOTTOMALIGN | TPM_LEFTALIGN,
                         pt.x, pt.y, 0, hwnd, NULL);
-                    
+
                     // MSDN recommends sending this message after TrackPopupMenu
                     PostMessage(hwnd, WM_NULL, 0, 0);
-                    
+
                     DestroyMenu(hMenu);
                 }
             }
@@ -304,20 +427,20 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case IDM_TOGGLE_FORMAT:
                 {
                     g_use12HourFormat = !g_use12HourFormat;
-                    
+
                     // Adjust window width based on format
                     RECT rect;
                     GetWindowRect(hwnd, &rect);
                     int screenWidth = GetSystemMetrics(SM_CXSCREEN);
-                    int newWidth = g_use12HourFormat ? 240 : 200; // Wider for 12-hour format
-                    
+                    int newWidth = GetWindowWidthForFormat(g_use12HourFormat);
+
                     // Reposition window to maintain right edge alignment
                     int newX = screenWidth - newWidth - 20; // 20px padding
-                    
+
                     // Resize and reposition the window
                     SetWindowPos(hwnd, NULL, newX, rect.top, newWidth, rect.bottom - rect.top,
                                  SWP_NOZORDER | SWP_NOACTIVATE);
-                    
+
                     InvalidateRect(hwnd, NULL, TRUE); // Force repaint with new format
                 }
                 break;
@@ -330,8 +453,11 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     case WM_DESTROY:
         // Remove the tray icon
         Shell_NotifyIcon(NIM_DELETE, &g_nid);
-        
-        KillTimer(hwnd, TIMER_ID); // Clean up the timer
+
+        // Clean up timers
+        KillTimer(hwnd, TIMER_ID);
+        KillTimer(hwnd, 4);
+
         if (g_hFont) {
             DeleteObject(g_hFont); // Clean up the font
         }

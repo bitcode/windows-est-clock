@@ -31,6 +31,7 @@ x86/
 *.bsc
 *.cache
 *.exp
+tmp-git-commit-msg.txt
 
 # System files
 .DS_Store

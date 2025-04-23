@@ -1,0 +1,21 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source code
+*.cpp text
+*.h text
+*.rc text
+
+# Windows-specific files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Documentation
+*.md text
+LICENSE text
+
+# Binary files
+*.ico binary
+*.exe binary
+*.dll binary
+*.res binary
