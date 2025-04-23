@@ -66,18 +66,8 @@ if %ERRORLEVEL% EQU 0 (
     exit /b 1
 )
 
-REM Ask for release notes
-echo.
-echo Please enter release notes (press Enter twice when finished):
-echo -----------------------------------------------------
-
-set NOTES=
-:loop
-set /p LINE=""
-if "%LINE%"=="" goto :endloop
-set NOTES=%NOTES%%LINE%\n
-goto :loop
-:endloop
+REM Simplified release notes - just use a default message
+set NOTES=Release version %VERSION% of EST Clock
 
 REM Create a tag with release notes
 echo.
