@@ -1,6 +1,6 @@
 # Windows EST Clock
 
-A simple desktop clock application displaying Eastern Time (ET) with clean visuals and minimal system impact.
+A simple desktop clock application displaying Eastern Time (ET) with clean visuals and minimal system impact. The clock works regardless of your local time zone, making it perfect for international teams coordinating with Eastern Time business hours.
 
 ![EST Clock Screenshot](docs/screenshot.png)
 
@@ -34,6 +34,8 @@ Alternatively, you can turn on "Always show all icons in the notification area" 
 
 ## Features
 - Accurate Eastern Time display (automatically adjusts for daylight saving)
+- Works correctly regardless of your local time zone
+- Handles international date line crossing, DST transitions, and leap years
 - Lightweight native implementation (no Electron/bloat)
 - Low CPU/memory usage
 - Simple, distraction-free interface
@@ -41,6 +43,7 @@ Alternatively, you can turn on "Always show all icons in the notification area" 
 - Toggle between 12-hour and 24-hour time formats
 - Draggable window positioning
 - Semi-transparent overlay stays on top of other windows
+- Comprehensive test suite for time zone conversions
 
 ## Releases
 
@@ -60,6 +63,21 @@ This script will:
 3. Collect release notes
 4. Create and push a Git tag
 5. Trigger the GitHub Actions workflow to create the release
+
+## Technical Details
+
+EST Clock is a lightweight Windows application written in C++ using the Win32 API. It uses minimal system resources and has no external dependencies.
+
+### How It Works
+- The application creates a transparent, always-on-top window to display the time
+- It uses the Windows API to retrieve the current UTC time and converts it to Eastern Time
+- The system tray icon provides easy access to show/hide the clock and access settings
+- The application automatically adjusts for daylight saving time changes
+- Time zone conversion logic handles various edge cases including:
+  - International date line crossing
+  - Daylight Saving Time transitions
+  - Month and year boundary changes
+  - Different user local time zones
 
 ## For Developers: Building from Source
 
@@ -116,6 +134,19 @@ This project uses Windows-specific API functions and requires a compiler that pr
    .\build\windows-est-clock-portable.exe
    ```
 
+### Running Tests
+The project includes comprehensive tests for time conversion functionality:
+
+1. Navigate to the `tests` directory
+2. Run the following commands to build and run the tests:
+   ```powershell
+   mkdir -p build && cd build
+   cmake ..
+   cmake --build . --config Debug
+   ./Debug/time_conversion_tests.exe
+   ./Debug/time_zone_conversion_tests.exe
+   ```
+
 ## Advanced Usage
 
 - Right-click the clock window for the same options as the tray icon
@@ -127,13 +158,48 @@ This project uses Windows-specific API functions and requires a compiler that pr
 - `resource.h` and `resource.rc` - Resource definitions
 - `windows-est-clock.ico` - Application icon
 - `build.bat` - Build script
+- `tests/` - Test suite for time conversion functionality
+  - `time_conversion_tests.cpp` - Basic time conversion tests
+  - `time_zone_conversion_tests.cpp` - Tests for different time zone scenarios
+  - `globals.cpp` - Global variables for testing
+  - `time_conversion_mock.cpp` - Mock implementations for testing
 - `docs/` - Documentation
   - `ARCHITECTURE.md` - Detailed architecture documentation
+- `.github/workflows/` - CI/CD pipeline configuration
 
 ## Contributing
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 All contributors are expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+### GitHub Actions Workflows
+
+This project uses GitHub Actions for automated building, testing, and releasing:
+
+#### Pull Request Workflow
+- Triggered on pull requests to the main branch
+- Builds the application
+- Runs all tests
+- Reports build and test status
+
+#### Main Branch Workflow
+- Triggered on pushes to the main branch
+- Builds the application
+- Runs all tests
+- Creates a pre-release with the latest executable
+
+#### Release Workflow
+- Triggered when a tag is pushed (v*.*.*)
+- Builds the application
+- Runs all tests
+- Creates an official release with the versioned executable
+
+### Branch Strategy
+- `main`: Production-ready code
+- `develop`: Integration branch for features
+- `feature/*`: Feature branches
+- `bugfix/*`: Bug fix branches
+- `release/*`: Release preparation branches
 
 ## Debugging
 For debugging, use the debug build:

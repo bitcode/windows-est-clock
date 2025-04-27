@@ -1,0 +1,44 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+        version: 12.2.0
+    
+    - name: Build
+      run: |
+        ./build.bat
+      shell: bash
+    
+    - name: Set up CMake
+      uses: lukka/get-cmake@latest
+    
+    - name: Build and Run Tests
+      run: |
+        cd tests
+        mkdir -p build && cd build
+        cmake ..
+        cmake --build . --config Debug
+        ./Debug/time_conversion_tests.exe
+        ./Debug/time_zone_conversion_tests.exe
+      shell: bash
+    
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: est-clock-pr-build
+        path: |
+          build/windows-est-clock-portable.exe
+          build/est_clock_debug.exe

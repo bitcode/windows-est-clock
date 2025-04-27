@@ -50,6 +50,36 @@ C:\mingw64\bin\windres resource.rc -O coff -o resource.res
 C:\mingw64\bin\g++.exe -g -DUNICODE -D_UNICODE main.cpp resource.res -o est_clock_debug.exe -lgdi32 -lshell32 -lcomctl32
 ```
 
+## Testing
+
+### Running Tests
+
+The project includes comprehensive tests for time conversion functionality:
+
+```bash
+cd tests
+mkdir -p build && cd build
+cmake ..
+cmake --build . --config Debug
+./Debug/time_conversion_tests.exe
+./Debug/time_zone_conversion_tests.exe
+```
+
+### Test Structure
+
+- `time_conversion_tests.cpp`: Basic time conversion tests
+- `time_zone_conversion_tests.cpp`: Tests for different time zone scenarios
+- `globals.cpp`: Global variables for testing
+- `time_conversion_mock.cpp`: Mock implementations for testing
+
+### Adding New Tests
+
+When adding new functionality, please include appropriate tests:
+
+1. For basic functionality, add tests to `time_conversion_tests.cpp`
+2. For time zone specific functionality, add tests to `time_zone_conversion_tests.cpp`
+3. If needed, update the mock implementations in `time_conversion_mock.cpp`
+
 ## Debugging
 
 ### Using GDB
@@ -79,14 +109,65 @@ Please follow these guidelines when contributing code:
 4. **Error Handling**: Always check return values from Windows API functions and handle errors appropriately.
 5. **Memory Management**: Properly clean up resources (icons, fonts, etc.) in the `WM_DESTROY` handler.
 
+## Branch Strategy
+
+We follow a structured branching strategy:
+
+- `main`: Production-ready code
+- `develop`: Integration branch for features
+- `feature/*`: Feature branches
+- `bugfix/*`: Bug fix branches
+- `release/*`: Release preparation branches
+
 ## Pull Request Process
 
 1. Fork the repository and create a new branch for your feature or bug fix.
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
 2. Make your changes, following the code style guidelines.
-3. Test your changes thoroughly.
+3. Test your changes thoroughly, including running the time conversion tests.
+   ```bash
+   cd tests
+   mkdir -p build && cd build
+   cmake ..
+   cmake --build . --config Debug
+   ./Debug/time_conversion_tests.exe
+   ./Debug/time_zone_conversion_tests.exe
+   ```
 4. Update documentation if necessary.
-5. Submit a pull request with a clear description of the changes.
-6. Ensure all checks pass.
+5. Commit your changes with a descriptive message.
+   ```bash
+   git commit -m "Add amazing feature"
+   ```
+6. Push to your fork.
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+7. Submit a pull request with a clear description of the changes.
+8. Ensure all automated checks pass.
+
+## Continuous Integration and Deployment
+
+This project uses GitHub Actions for CI/CD:
+
+### Pull Request Workflow
+- Triggered on pull requests to the main branch
+- Builds the application
+- Runs all tests
+- Reports build and test status
+
+### Main Branch Workflow
+- Triggered on pushes to the main branch
+- Builds the application
+- Runs all tests
+- Creates a pre-release with the latest executable
+
+### Release Workflow
+- Triggered when a tag is pushed (v*.*.*)
+- Builds the application
+- Runs all tests
+- Creates an official release with the versioned executable
 
 ## Architecture Overview
 

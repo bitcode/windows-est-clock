@@ -1,0 +1,584 @@
+﻿2025-04-23T01:25:00.9762936Z Current runner version: '2.323.0'
+2025-04-23T01:25:00.9790560Z ##[group]Operating System
+2025-04-23T01:25:00.9791289Z Microsoft Windows Server 2022
+2025-04-23T01:25:00.9791860Z 10.0.20348
+2025-04-23T01:25:00.9792297Z Datacenter
+2025-04-23T01:25:00.9792715Z ##[endgroup]
+2025-04-23T01:25:00.9793179Z ##[group]Runner Image
+2025-04-23T01:25:00.9793651Z Image: windows-2022
+2025-04-23T01:25:00.9794117Z Version: 20250406.1.0
+2025-04-23T01:25:00.9795064Z Included Software: https://github.com/actions/runner-images/blob/win22/20250406.1/images/windows/Windows2022-Readme.md
+2025-04-23T01:25:00.9796358Z Image Release: https://github.com/actions/runner-images/releases/tag/win22%2F20250406.1
+2025-04-23T01:25:00.9797175Z ##[endgroup]
+2025-04-23T01:25:00.9797602Z ##[group]Runner Image Provisioner
+2025-04-23T01:25:00.9798141Z 2.0.422.1
+2025-04-23T01:25:00.9798528Z ##[endgroup]
+2025-04-23T01:25:00.9799545Z ##[group]GITHUB_TOKEN Permissions
+2025-04-23T01:25:00.9801602Z Contents: read
+2025-04-23T01:25:00.9802156Z Metadata: read
+2025-04-23T01:25:00.9802599Z Packages: read
+2025-04-23T01:25:00.9802999Z ##[endgroup]
+2025-04-23T01:25:00.9805039Z Secret source: Actions
+2025-04-23T01:25:00.9805674Z Prepare workflow directory
+2025-04-23T01:25:01.0142306Z Prepare all required actions
+2025-04-23T01:25:01.0195690Z Getting action download info
+2025-04-23T01:25:01.2365440Z ##[group]Download immutable action package 'actions/checkout@v3'
+2025-04-23T01:25:01.2366431Z Version: 3.6.0
+2025-04-23T01:25:01.2367277Z Digest: sha256:942562b9c7d4b1f2557f1da21f4d3eb4eb4fd01f2ad78b2a6e187d1b193e0a0f
+2025-04-23T01:25:01.2368358Z Source commit SHA: f43a0e5ff2bd294095638e18286ca9a3d1956744
+2025-04-23T01:25:01.2369029Z ##[endgroup]
+2025-04-23T01:25:01.5424959Z Download action repository 'egor-tensin/setup-mingw@v2' (SHA:84c781b557efd538dec66bde06988d81cd3138cf)
+2025-04-23T01:25:02.0646596Z Download action repository 'softprops/action-gh-release@v1' (SHA:de2c0eb89ae2a093876385947365aca7b0e5f844)
+2025-04-23T01:25:02.4296448Z Complete job name: build
+2025-04-23T01:25:02.5442274Z ##[group]Run actions/checkout@v3
+2025-04-23T01:25:02.5443284Z with:
+2025-04-23T01:25:02.5443701Z   repository: bitcode/windows-est-clock
+2025-04-23T01:25:02.5444450Z   token: ***
+2025-04-23T01:25:02.5444822Z   ssh-strict: true
+2025-04-23T01:25:02.5445236Z   persist-credentials: true
+2025-04-23T01:25:02.5445682Z   clean: true
+2025-04-23T01:25:02.5446084Z   sparse-checkout-cone-mode: true
+2025-04-23T01:25:02.5446562Z   fetch-depth: 1
+2025-04-23T01:25:02.5446952Z   fetch-tags: false
+2025-04-23T01:25:02.5447329Z   lfs: false
+2025-04-23T01:25:02.5447703Z   submodules: false
+2025-04-23T01:25:02.5448132Z   set-safe-directory: true
+2025-04-23T01:25:02.5448787Z ##[endgroup]
+2025-04-23T01:25:03.0606143Z Syncing repository: bitcode/windows-est-clock
+2025-04-23T01:25:03.0607906Z ##[group]Getting Git version info
+2025-04-23T01:25:03.0608633Z Working directory is 'D:\a\windows-est-clock\windows-est-clock'
+2025-04-23T01:25:03.3078224Z [command]"C:\Program Files\Git\bin\git.exe" version
+2025-04-23T01:25:03.4846726Z git version 2.49.0.windows.1
+2025-04-23T01:25:03.4859588Z ##[endgroup]
+2025-04-23T01:25:03.5313472Z Temporarily overriding HOME='D:\a\_temp\ed3fb2e3-cc88-4dc2-8e78-ca2167a56c34' before making global git config changes
+2025-04-23T01:25:03.5315420Z Adding repository directory to the temporary git global config as a safe directory
+2025-04-23T01:25:03.5321757Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\windows-est-clock\windows-est-clock
+2025-04-23T01:25:03.6596717Z Deleting the contents of 'D:\a\windows-est-clock\windows-est-clock'
+2025-04-23T01:25:03.6601941Z ##[group]Initializing the repository
+2025-04-23T01:25:03.6610298Z [command]"C:\Program Files\Git\bin\git.exe" init D:\a\windows-est-clock\windows-est-clock
+2025-04-23T01:25:03.7650595Z Initialized empty Git repository in D:/a/windows-est-clock/windows-est-clock/.git/
+2025-04-23T01:25:03.7682118Z [command]"C:\Program Files\Git\bin\git.exe" remote add origin https://github.com/bitcode/windows-est-clock
+2025-04-23T01:25:04.1356993Z ##[endgroup]
+2025-04-23T01:25:04.1358868Z ##[group]Disabling automatic garbage collection
+2025-04-23T01:25:04.1364102Z [command]"C:\Program Files\Git\bin\git.exe" config --local gc.auto 0
+2025-04-23T01:25:04.1581725Z ##[endgroup]
+2025-04-23T01:25:04.1582990Z ##[group]Setting up auth
+2025-04-23T01:25:04.1591544Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2025-04-23T01:25:04.1807256Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2025-04-23T01:25:06.1307366Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-04-23T01:25:06.1538786Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2025-04-23T01:25:06.5659488Z [command]"C:\Program Files\Git\bin\git.exe" config --local http.https://github.com/.extraheader "AUTHORIZATION: basic ***"
+2025-04-23T01:25:06.5890607Z ##[endgroup]
+2025-04-23T01:25:06.5891396Z ##[group]Fetching the repository
+2025-04-23T01:25:06.5904768Z [command]"C:\Program Files\Git\bin\git.exe" -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +4cb8203917fb164a92c46c49a2a53130decd6309:refs/tags/v1.0.0
+2025-04-23T01:25:07.7030094Z remote: Enumerating objects: 29, done.        
+2025-04-23T01:25:07.7030851Z remote: Counting objects:   3% (1/29)        
+2025-04-23T01:25:07.7031515Z remote: Counting objects:   6% (2/29)        
+2025-04-23T01:25:07.7032239Z remote: Counting objects:  10% (3/29)        
+2025-04-23T01:25:07.7032946Z remote: Counting objects:  13% (4/29)        
+2025-04-23T01:25:07.7036984Z remote: Counting objects:  17% (5/29)        
+2025-04-23T01:25:07.7038334Z remote: Counting objects:  20% (6/29)        
+2025-04-23T01:25:07.7039055Z remote: Counting objects:  24% (7/29)        
+2025-04-23T01:25:07.7039681Z remote: Counting objects:  27% (8/29)        
+2025-04-23T01:25:07.7040041Z remote: Counting objects:  31% (9/29)        
+2025-04-23T01:25:07.7040339Z remote: Counting objects:  34% (10/29)        
+2025-04-23T01:25:07.7040654Z remote: Counting objects:  37% (11/29)        
+2025-04-23T01:25:07.7040947Z remote: Counting objects:  41% (12/29)        
+2025-04-23T01:25:07.7041265Z remote: Counting objects:  44% (13/29)        
+2025-04-23T01:25:07.7041548Z remote: Counting objects:  48% (14/29)        
+2025-04-23T01:25:07.7041855Z remote: Counting objects:  51% (15/29)        
+2025-04-23T01:25:07.7042206Z remote: Counting objects:  55% (16/29)        
+2025-04-23T01:25:07.7042572Z remote: Counting objects:  58% (17/29)        
+2025-04-23T01:25:07.7042890Z remote: Counting objects:  62% (18/29)        
+2025-04-23T01:25:07.7043166Z remote: Counting objects:  65% (19/29)        
+2025-04-23T01:25:07.7043492Z remote: Counting objects:  68% (20/29)        
+2025-04-23T01:25:07.7043765Z remote: Counting objects:  72% (21/29)        
+2025-04-23T01:25:07.7044047Z remote: Counting objects:  75% (22/29)        
+2025-04-23T01:25:07.7044448Z remote: Counting objects:  79% (23/29)        
+2025-04-23T01:25:07.7044873Z remote: Counting objects:  82% (24/29)        
+2025-04-23T01:25:07.7045163Z remote: Counting objects:  86% (25/29)        
+2025-04-23T01:25:07.7045441Z remote: Counting objects:  89% (26/29)        
+2025-04-23T01:25:07.7045733Z remote: Counting objects:  93% (27/29)        
+2025-04-23T01:25:07.7046074Z remote: Counting objects:  96% (28/29)        
+2025-04-23T01:25:07.7046462Z remote: Counting objects: 100% (29/29)        
+2025-04-23T01:25:07.7046770Z remote: Counting objects: 100% (29/29), done.        
+2025-04-23T01:25:07.7047104Z remote: Compressing objects:   3% (1/28)        
+2025-04-23T01:25:07.7048190Z remote: Compressing objects:   7% (2/28)        
+2025-04-23T01:25:07.7048576Z remote: Compressing objects:  10% (3/28)        
+2025-04-23T01:25:07.7048899Z remote: Compressing objects:  14% (4/28)        
+2025-04-23T01:25:07.7049231Z remote: Compressing objects:  17% (5/28)        
+2025-04-23T01:25:07.7049513Z remote: Compressing objects:  21% (6/28)        
+2025-04-23T01:25:07.7049803Z remote: Compressing objects:  25% (7/28)        
+2025-04-23T01:25:07.7050087Z remote: Compressing objects:  28% (8/28)        
+2025-04-23T01:25:07.7050376Z remote: Compressing objects:  32% (9/28)        
+2025-04-23T01:25:07.7050664Z remote: Compressing objects:  35% (10/28)        
+2025-04-23T01:25:07.7050964Z remote: Compressing objects:  39% (11/28)        
+2025-04-23T01:25:07.7051263Z remote: Compressing objects:  42% (12/28)        
+2025-04-23T01:25:07.7051651Z remote: Compressing objects:  46% (13/28)        
+2025-04-23T01:25:07.7052209Z remote: Compressing objects:  50% (14/28)        
+2025-04-23T01:25:07.7052784Z remote: Compressing objects:  53% (15/28)        
+2025-04-23T01:25:07.7053296Z remote: Compressing objects:  57% (16/28)        
+2025-04-23T01:25:07.7053823Z remote: Compressing objects:  60% (17/28)        
+2025-04-23T01:25:07.7054364Z remote: Compressing objects:  64% (18/28)        
+2025-04-23T01:25:07.7054876Z remote: Compressing objects:  67% (19/28)        
+2025-04-23T01:25:07.7055392Z remote: Compressing objects:  71% (20/28)        
+2025-04-23T01:25:07.7055930Z remote: Compressing objects:  75% (21/28)        
+2025-04-23T01:25:07.7056372Z remote: Compressing objects:  78% (22/28)        
+2025-04-23T01:25:07.7056831Z remote: Compressing objects:  82% (23/28)        
+2025-04-23T01:25:07.7057342Z remote: Compressing objects:  85% (24/28)        
+2025-04-23T01:25:07.7057867Z remote: Compressing objects:  89% (25/28)        
+2025-04-23T01:25:07.7058388Z remote: Compressing objects:  92% (26/28)        
+2025-04-23T01:25:07.7059809Z remote: Compressing objects:  96% (27/28)        
+2025-04-23T01:25:07.7060395Z remote: Compressing objects: 100% (28/28)        
+2025-04-23T01:25:07.7060972Z remote: Compressing objects: 100% (28/28), done.        
+2025-04-23T01:25:07.7820884Z remote: Total 29 (delta 0), reused 22 (delta 0), pack-reused 0 (from 0)        
+2025-04-23T01:25:07.8442676Z From https://github.com/bitcode/windows-est-clock
+2025-04-23T01:25:07.8443595Z  * [new ref]         4cb8203917fb164a92c46c49a2a53130decd6309 -> v1.0.0
+2025-04-23T01:25:07.8928859Z ##[endgroup]
+2025-04-23T01:25:07.8929281Z ##[group]Determining the checkout info
+2025-04-23T01:25:07.8932053Z ##[endgroup]
+2025-04-23T01:25:07.8932444Z ##[group]Checking out the ref
+2025-04-23T01:25:07.8940143Z [command]"C:\Program Files\Git\bin\git.exe" checkout --progress --force refs/tags/v1.0.0
+2025-04-23T01:25:07.9484561Z Note: switching to 'refs/tags/v1.0.0'.
+2025-04-23T01:25:07.9485062Z 
+2025-04-23T01:25:07.9485595Z You are in 'detached HEAD' state. You can look around, make experimental
+2025-04-23T01:25:07.9486488Z changes and commit them, and you can discard any commits you make in this
+2025-04-23T01:25:07.9487237Z state without impacting any branches by switching back to a branch.
+2025-04-23T01:25:07.9487689Z 
+2025-04-23T01:25:07.9487956Z If you want to create a new branch to retain commits you create, you may
+2025-04-23T01:25:07.9488614Z do so (now or later) by using -c with the switch command. Example:
+2025-04-23T01:25:07.9489022Z 
+2025-04-23T01:25:07.9489169Z   git switch -c <new-branch-name>
+2025-04-23T01:25:07.9489446Z 
+2025-04-23T01:25:07.9489590Z Or undo this operation with:
+2025-04-23T01:25:07.9489833Z 
+2025-04-23T01:25:07.9489946Z   git switch -
+2025-04-23T01:25:07.9490156Z 
+2025-04-23T01:25:07.9490468Z Turn off this advice by setting config variable advice.detachedHead to false
+2025-04-23T01:25:07.9490954Z 
+2025-04-23T01:25:07.9491225Z HEAD is now at 4cb8203 Simplify release notes to fix script hanging
+2025-04-23T01:25:07.9513650Z ##[endgroup]
+2025-04-23T01:25:07.9815340Z [command]"C:\Program Files\Git\bin\git.exe" log -1 --format='%H'
+2025-04-23T01:25:08.0010194Z '4cb8203917fb164a92c46c49a2a53130decd6309'
+2025-04-23T01:25:08.0613817Z ##[group]Run egor-tensin/setup-mingw@v2
+2025-04-23T01:25:08.0614112Z with:
+2025-04-23T01:25:08.0614282Z   platform: x64
+2025-04-23T01:25:08.0614441Z   version: 12.2.0
+2025-04-23T01:25:08.0614596Z   cygwin: 0
+2025-04-23T01:25:08.0614734Z   static: 1
+2025-04-23T01:25:08.0614858Z   cc: 1
+2025-04-23T01:25:08.0614990Z   hardlinks: 0
+2025-04-23T01:25:08.0615137Z ##[endgroup]
+2025-04-23T01:25:08.0791296Z ##[group]Run New-Variable os -Value 'Windows' -Option Constant
+2025-04-23T01:25:08.0792054Z [36;1mNew-Variable os -Value 'Windows' -Option Constant[0m
+2025-04-23T01:25:08.0792438Z [36;1mNew-Variable mingw_version -Value '12.2.0' -Option Constant[0m
+2025-04-23T01:25:08.0792872Z [36;1mNew-Variable mingw_version_supplied -Value ('12.2.0' -ne '') -Option Constant[0m
+2025-04-23T01:25:08.0793212Z [36;1m[0m
+2025-04-23T01:25:08.0793473Z [36;1mNew-Variable linux_host -Value ($os -eq 'Linux') -Option Constant[0m
+2025-04-23T01:25:08.0793907Z [36;1mNew-Variable cygwin_host -Value ('0' -eq '1') -Option Constant[0m
+2025-04-23T01:25:08.0794363Z [36;1mNew-Variable windows_host -Value ($os -eq 'Windows' -and !$cygwin_host) -Option Constant[0m
+2025-04-23T01:25:08.0794721Z [36;1m[0m
+2025-04-23T01:25:08.0794945Z [36;1mNew-Variable x64 -Value ('x64' -eq 'x64') -Option Constant[0m
+2025-04-23T01:25:08.0795337Z [36;1mNew-Variable static_workaround -Value ('1' -eq '1') -Option Constant[0m
+2025-04-23T01:25:08.0795653Z [36;1m[0m
+2025-04-23T01:25:08.0795806Z [36;1m$prefix32 = 'i686-w64-mingw32'[0m
+2025-04-23T01:25:08.0796038Z [36;1m$prefix64 = 'x86_64-w64-mingw32'[0m
+2025-04-23T01:25:08.0796315Z [36;1m$prefix = if ($x64) { $prefix64 } else { $prefix32 }[0m
+2025-04-23T01:25:08.0796564Z [36;1m[0m
+2025-04-23T01:25:08.0796713Z [36;1mfunction Locate-Choco {[0m
+2025-04-23T01:25:08.0796987Z [36;1m    $path = Get-Command 'choco' -ErrorAction SilentlyContinue[0m
+2025-04-23T01:25:08.0797294Z [36;1m    if ($path) {[0m
+2025-04-23T01:25:08.0797482Z [36;1m        $path.Path[0m
+2025-04-23T01:25:08.0797662Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0797890Z [36;1m        Join-Path ${env:ProgramData} 'chocolatey' 'bin' 'choco'[0m
+2025-04-23T01:25:08.0798162Z [36;1m    }[0m
+2025-04-23T01:25:08.0798299Z [36;1m}[0m
+2025-04-23T01:25:08.0798429Z [36;1m[0m
+2025-04-23T01:25:08.0798579Z [36;1mfunction Install-Package {[0m
+2025-04-23T01:25:08.0798777Z [36;1m    param([0m
+2025-04-23T01:25:08.0799042Z [36;1m        [Parameter(Mandatory=$true, ValueFromRemainingArguments=$true)][0m
+2025-04-23T01:25:08.0799356Z [36;1m        [string[]] $Packages[0m
+2025-04-23T01:25:08.0799555Z [36;1m    )[0m
+2025-04-23T01:25:08.0799687Z [36;1m[0m
+2025-04-23T01:25:08.0799838Z [36;1m    if ($script:linux_host) {[0m
+2025-04-23T01:25:08.0800046Z [36;1m        sudo apt-get update[0m
+2025-04-23T01:25:08.0800439Z [36;1m        sudo DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends $Packages[0m
+2025-04-23T01:25:08.0800858Z [36;1m    } elseif ($script:cygwin_host) {[0m
+2025-04-23T01:25:08.0801083Z [36;1m        $choco = Locate-Choco[0m
+2025-04-23T01:25:08.0801365Z [36;1m        & $choco install $Packages -y --no-progress --source=cygwin[0m
+2025-04-23T01:25:08.0801663Z [36;1m    } elseif ($script:windows_host) {[0m
+2025-04-23T01:25:08.0801925Z [36;1m        $choco = Locate-Choco[0m
+2025-04-23T01:25:08.0802216Z [36;1m        & $choco upgrade $Packages -y --no-progress --allow-downgrade[0m
+2025-04-23T01:25:08.0802499Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0802759Z [36;1m        throw "Sorry, installing packages is unsupported on $script:os"[0m
+2025-04-23T01:25:08.0803046Z [36;1m    }[0m
+2025-04-23T01:25:08.0803186Z [36;1m}[0m
+2025-04-23T01:25:08.0803313Z [36;1m[0m
+2025-04-23T01:25:08.0803461Z [36;1mfunction Remove-Package {[0m
+2025-04-23T01:25:08.0803842Z [36;1m    param([0m
+2025-04-23T01:25:08.0804107Z [36;1m        [Parameter(Mandatory=$true, ValueFromRemainingArguments=$true)][0m
+2025-04-23T01:25:08.0806163Z [36;1m        [string[]] $Packages[0m
+2025-04-23T01:25:08.0806429Z [36;1m    )[0m
+2025-04-23T01:25:08.0806584Z [36;1m[0m
+2025-04-23T01:25:08.0806736Z [36;1m    if ($script:linux_host) {[0m
+2025-04-23T01:25:08.0807018Z [36;1m        sudo apt-get autoremove --purge -yq $Packages[0m
+2025-04-23T01:25:08.0807308Z [36;1m    } elseif ($script:cygwin_host) {[0m
+2025-04-23T01:25:08.0807542Z [36;1m        $choco = Locate-Choco[0m
+2025-04-23T01:25:08.0807834Z [36;1m        & $choco uninstall $Packages -y --no-progress --source=cygwin[0m
+2025-04-23T01:25:08.0808164Z [36;1m    } elseif ($script:windows_host) {[0m
+2025-04-23T01:25:08.0808388Z [36;1m        $choco = Locate-Choco[0m
+2025-04-23T01:25:08.0808641Z [36;1m        & $choco uninstall $Packages -y --no-progress[0m
+2025-04-23T01:25:08.0808884Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0809135Z [36;1m        throw "Sorry, removing packages is unsupported on $script:os"[0m
+2025-04-23T01:25:08.0809408Z [36;1m    }[0m
+2025-04-23T01:25:08.0809550Z [36;1m}[0m
+2025-04-23T01:25:08.0809682Z [36;1m[0m
+2025-04-23T01:25:08.0809819Z [36;1mif ($linux_host) {[0m
+2025-04-23T01:25:08.0810016Z [36;1m    if ($mingw_version_supplied) {[0m
+2025-04-23T01:25:08.0810272Z [36;1m        Install-Package mingw-w64=$mingw_version[0m
+2025-04-23T01:25:08.0810512Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0810684Z [36;1m        Install-Package mingw-w64[0m
+2025-04-23T01:25:08.0810887Z [36;1m    }[0m
+2025-04-23T01:25:08.0811019Z [36;1m[0m
+2025-04-23T01:25:08.0811242Z [36;1m    # Make the compilers use the POSIX threading model, whatever that[0m
+2025-04-23T01:25:08.0811601Z [36;1m    # is.  Without it, the stuff from <mutex>/<thread>/etc. doesn't[0m
+2025-04-23T01:25:08.0811938Z [36;1m    # compile.  Of course, it makes the binaries depend on[0m
+2025-04-23T01:25:08.0812254Z [36;1m    # libwinpthread-1.dll, but what you gonna do?[0m
+2025-04-23T01:25:08.0812483Z [36;1m[0m
+2025-04-23T01:25:08.0812760Z [36;1m    sudo update-alternatives --set "$prefix32-gcc" "/usr/bin/$prefix32-gcc-posix"[0m
+2025-04-23T01:25:08.0813230Z [36;1m    sudo update-alternatives --set "$prefix32-g++" "/usr/bin/$prefix32-g++-posix"[0m
+2025-04-23T01:25:08.0813687Z [36;1m    sudo update-alternatives --set "$prefix64-gcc" "/usr/bin/$prefix64-gcc-posix"[0m
+2025-04-23T01:25:08.0814139Z [36;1m    sudo update-alternatives --set "$prefix64-g++" "/usr/bin/$prefix64-g++-posix"[0m
+2025-04-23T01:25:08.0814461Z [36;1m[0m
+2025-04-23T01:25:08.0814607Z [36;1m    if ($static_workaround) {[0m
+2025-04-23T01:25:08.0814814Z [36;1m        sudo rm `[0m
+2025-04-23T01:25:08.0815028Z [36;1m            "/usr/$prefix32/lib/libpthread.dll.a" `[0m
+2025-04-23T01:25:08.0815302Z [36;1m            "/usr/$prefix32/lib/libwinpthread.dll.a" `[0m
+2025-04-23T01:25:08.0815577Z [36;1m            "/usr/$prefix64/lib/libpthread.dll.a" `[0m
+2025-04-23T01:25:08.0815842Z [36;1m            "/usr/$prefix64/lib/libwinpthread.dll.a"[0m
+2025-04-23T01:25:08.0816075Z [36;1m    }[0m
+2025-04-23T01:25:08.0816230Z [36;1m} elseif ($cygwin_host) {[0m
+2025-04-23T01:25:08.0816509Z [36;1m    $pkg = if ($x64) { 'mingw64-x86_64-gcc-g++' } else { 'mingw64-i686-gcc-g++' }[0m
+2025-04-23T01:25:08.0816822Z [36;1m    if ($mingw_version_supplied) {[0m
+2025-04-23T01:25:08.0817088Z [36;1m        Install-Package $pkg --version $mingw_version[0m
+2025-04-23T01:25:08.0817339Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0817512Z [36;1m        Install-Package $pkg[0m
+2025-04-23T01:25:08.0817726Z [36;1m    }[0m
+2025-04-23T01:25:08.0817869Z [36;1m[0m
+2025-04-23T01:25:08.0818082Z [36;1m    $bin_dir = cygpath.exe -wa "/usr/$prefix/sys-root/mingw/bin"[0m
+2025-04-23T01:25:08.0818438Z [36;1m    $lib_dir = cygpath.exe -wa "/usr/$prefix/sys-root/mingw/lib"[0m
+2025-04-23T01:25:08.0818698Z [36;1m[0m
+2025-04-23T01:25:08.0819480Z [36;1m    echo $bin_dir >> $env:GITHUB_PATH[0m
+2025-04-23T01:25:08.0819692Z [36;1m[0m
+2025-04-23T01:25:08.0820240Z [36;1m    if ($static_workaround) {[0m
+2025-04-23T01:25:08.0820539Z [36;1m        Remove-Item (Join-Path $lib_dir 'libpthread.dll.a')[0m
+2025-04-23T01:25:08.0820883Z [36;1m        Remove-Item (Join-Path $lib_dir 'libwinpthread.dll.a')[0m
+2025-04-23T01:25:08.0821150Z [36;1m    }[0m
+2025-04-23T01:25:08.0821303Z [36;1m} elseif ($windows_host) {[0m
+2025-04-23T01:25:08.0821508Z [36;1m    $choco = Locate-Choco[0m
+2025-04-23T01:25:08.0821691Z [36;1m[0m
+2025-04-23T01:25:08.0821831Z [36;1m    $mingw32 = 'mingw32'[0m
+2025-04-23T01:25:08.0822017Z [36;1m    $mingw64 = 'mingw64'[0m
+2025-04-23T01:25:08.0822245Z [36;1m    $mingw = if ($x64) { $mingw64 } else { $mingw32 }[0m
+2025-04-23T01:25:08.0822479Z [36;1m[0m
+2025-04-23T01:25:08.0822741Z [36;1m    $mingw_install = Join-Path C: ProgramData chocolatey lib mingw tools install[0m
+2025-04-23T01:25:08.0823136Z [36;1m    $mingw_root = Join-Path $mingw_install $mingw[0m
+2025-04-23T01:25:08.0823406Z [36;1m    $mingw_bin = Join-Path $mingw_root bin[0m
+2025-04-23T01:25:08.0823680Z [36;1m    $mingw_lib = Join-Path $mingw_root $prefix lib[0m
+2025-04-23T01:25:08.0823909Z [36;1m[0m
+2025-04-23T01:25:08.0824049Z [36;1m    $pkg = 'mingw'[0m
+2025-04-23T01:25:08.0824209Z [36;1m[0m
+2025-04-23T01:25:08.0824344Z [36;1m    if ($x64) {[0m
+2025-04-23T01:25:08.0824603Z [36;1m        # If the 32-bit version is installed, we won't detect that.[0m
+2025-04-23T01:25:08.0824934Z [36;1m        # But it's not that important, and we save a lot of time.[0m
+2025-04-23T01:25:08.0825221Z [36;1m        if ($mingw_version_supplied) {[0m
+2025-04-23T01:25:08.0825490Z [36;1m            Install-Package $pkg --version $mingw_version[0m
+2025-04-23T01:25:08.0825744Z [36;1m        } else {[0m
+2025-04-23T01:25:08.0825932Z [36;1m            Install-Package $pkg[0m
+2025-04-23T01:25:08.0826131Z [36;1m        }[0m
+2025-04-23T01:25:08.0826286Z [36;1m    } else {[0m
+2025-04-23T01:25:08.0826481Z [36;1m        # Assuming the 64-bit version is installed.[0m
+2025-04-23T01:25:08.0826736Z [36;1m        Remove-Package $pkg[0m
+2025-04-23T01:25:08.0826957Z [36;1m        if ($mingw_version_supplied) {[0m
+2025-04-23T01:25:08.0827245Z [36;1m            Install-Package $pkg --version $mingw_version --x86[0m
+2025-04-23T01:25:08.0827514Z [36;1m        } else {[0m
+2025-04-23T01:25:08.0827703Z [36;1m            Install-Package $pkg --x86[0m
+2025-04-23T01:25:08.0827914Z [36;1m        }[0m
+2025-04-23T01:25:08.0828056Z [36;1m    }[0m
+2025-04-23T01:25:08.0828231Z [36;1m    echo $mingw_bin >> $env:GITHUB_PATH[0m
+2025-04-23T01:25:08.0828438Z [36;1m[0m
+2025-04-23T01:25:08.0828586Z [36;1m    if ($static_workaround) {[0m
+2025-04-23T01:25:08.0828852Z [36;1m        Remove-Item (Join-Path $mingw_lib 'libpthread.dll.a')[0m
+2025-04-23T01:25:08.0829202Z [36;1m        Remove-Item (Join-Path $mingw_lib 'libwinpthread.dll.a')[0m
+2025-04-23T01:25:08.0829486Z [36;1m    }[0m
+2025-04-23T01:25:08.0829628Z [36;1m} else {[0m
+2025-04-23T01:25:08.0829849Z [36;1m    throw "Sorry, installing MinGW is unsupported on $os"[0m
+2025-04-23T01:25:08.0830176Z [36;1m}[0m
+2025-04-23T01:25:08.0830402Z [36;1m[0m
+2025-04-23T01:25:08.0830809Z [36;1m$gcc = $prefix + '-gcc'[0m
+2025-04-23T01:25:08.0831012Z [36;1m$gxx = $prefix + '-g++'[0m
+2025-04-23T01:25:08.0831212Z [36;1m$windres = $prefix = '-windres'[0m
+2025-04-23T01:25:08.0831417Z [36;1m[0m
+2025-04-23T01:25:08.0831591Z [36;1mecho "prefix=$prefix"   >> $env:GITHUB_OUTPUT[0m
+2025-04-23T01:25:08.0831862Z [36;1mecho "gcc=$gcc"         >> $env:GITHUB_OUTPUT[0m
+2025-04-23T01:25:08.0832122Z [36;1mecho "gxx=$gxx"         >> $env:GITHUB_OUTPUT[0m
+2025-04-23T01:25:08.0832381Z [36;1mecho "windres=$windres" >> $env:GITHUB_OUTPUT[0m
+2025-04-23T01:25:08.0872120Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2025-04-23T01:25:08.0872442Z ##[endgroup]
+2025-04-23T01:25:13.4929228Z Chocolatey v2.4.3
+2025-04-23T01:25:13.9396870Z Upgrading the following packages:
+2025-04-23T01:25:13.9404053Z mingw
+2025-04-23T01:25:13.9409350Z By upgrading, you accept licenses for the packages.
+2025-04-23T01:25:24.3554009Z mingw is not installed. Installing...
+2025-04-23T01:25:25.0803022Z Downloading package from source 'https://community.chocolatey.org/api/v2/'
+2025-04-23T01:25:25.6852970Z 
+2025-04-23T01:25:25.6853379Z mingw v12.2.0 [Approved]
+2025-04-23T01:25:25.7188121Z mingw package files upgrade completed. Performing other installation steps.
+2025-04-23T01:25:28.6901745Z Downloading mingw 64 bit
+2025-04-23T01:25:28.6902828Z   from 'https://github.com/brechtsanders/winlibs_mingw/releases/download/12.2.0-14.0.6-10.0.0-ucrt-r2/winlibs-x86_64-posix-seh-gcc-12.2.0-mingw-w64ucrt-10.0.0-r2.7z'
+2025-04-23T01:25:29.7197288Z 
+2025-04-23T01:25:29.7217524Z Download of winlibs-x86_64-posix-seh-gcc-12.2.0-mingw-w64ucrt-10.0.0-r2.7z (88.92 MB) completed.
+2025-04-23T01:25:41.0141251Z Hashes match.
+2025-04-23T01:25:41.1468558Z Extracting C:\Users\runneradmin\AppData\Local\Temp\chocolatey\mingw\12.2.0\winlibs-x86_64-posix-seh-gcc-12.2.0-mingw-w64ucrt-10.0.0-r2.7z to C:\ProgramData\chocolatey\lib\mingw\tools\install...
+2025-04-23T01:26:05.8476928Z C:\ProgramData\chocolatey\lib\mingw\tools\install
+2025-04-23T01:26:05.8502216Z Testing path: C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw32\bin
+2025-04-23T01:26:05.8511742Z Testing path: C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin
+2025-04-23T01:26:05.8600243Z PATH environment variable does not have C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin in it. Adding...
+2025-04-23T01:26:06.1782147Z Environment Vars (like PATH) have changed. Close/reopen your shell to
+2025-04-23T01:26:06.1782603Z  see the changes (or in powershell/cmd.exe just type `refreshenv`).
+2025-04-23T01:26:18.2390763Z  ShimGen has successfully created a shim for addr2line.exe
+2025-04-23T01:26:18.4130538Z  ShimGen has successfully created a shim for ar.exe
+2025-04-23T01:26:18.5866633Z  ShimGen has successfully created a shim for as.exe
+2025-04-23T01:26:18.7592730Z  ShimGen has successfully created a shim for c++.exe
+2025-04-23T01:26:18.9457987Z  ShimGen has successfully created a shim for c++filt.exe
+2025-04-23T01:26:19.1284985Z  ShimGen has successfully created a shim for cpp.exe
+2025-04-23T01:26:19.3087620Z  ShimGen has successfully created a shim for dlltool.exe
+2025-04-23T01:26:19.4819399Z  ShimGen has successfully created a shim for dllwrap.exe
+2025-04-23T01:26:19.6529977Z  ShimGen has successfully created a shim for dos2unix.exe
+2025-04-23T01:26:19.8706979Z  ShimGen has successfully created a shim for doxygen.exe
+2025-04-23T01:26:20.0417485Z  ShimGen has successfully created a shim for elfedit.exe
+2025-04-23T01:26:20.2146446Z  ShimGen has successfully created a shim for g++.exe
+2025-04-23T01:26:20.3865109Z  ShimGen has successfully created a shim for gcc-ar.exe
+2025-04-23T01:26:20.5572620Z  ShimGen has successfully created a shim for gcc-nm.exe
+2025-04-23T01:26:20.7273542Z  ShimGen has successfully created a shim for gcc-ranlib.exe
+2025-04-23T01:26:20.9033969Z  ShimGen has successfully created a shim for gcc.exe
+2025-04-23T01:26:21.0744798Z  ShimGen has successfully created a shim for gcov-dump.exe
+2025-04-23T01:26:21.2460494Z  ShimGen has successfully created a shim for gcov-tool.exe
+2025-04-23T01:26:21.4175852Z  ShimGen has successfully created a shim for gcov.exe
+2025-04-23T01:26:21.6127156Z  ShimGen has successfully created a shim for gdb.exe
+2025-04-23T01:26:21.7852572Z  ShimGen has successfully created a shim for gdbserver.exe
+2025-04-23T01:26:22.0008523Z  ShimGen has successfully created a shim for gendef.exe
+2025-04-23T01:26:22.1724855Z  ShimGen has successfully created a shim for genidl.exe
+2025-04-23T01:26:22.3445413Z  ShimGen has successfully created a shim for gfortran.exe
+2025-04-23T01:26:22.5174833Z  ShimGen has successfully created a shim for gprof.exe
+2025-04-23T01:26:22.6891298Z  ShimGen has successfully created a shim for iconv.exe
+2025-04-23T01:26:22.8636552Z  ShimGen has successfully created a shim for ld.bfd.exe
+2025-04-23T01:26:23.0358611Z  ShimGen has successfully created a shim for ld.exe
+2025-04-23T01:26:23.4349894Z  ShimGen has successfully created a shim for lto-dump.exe
+2025-04-23T01:26:23.6058529Z  ShimGen has successfully created a shim for mac2unix.exe
+2025-04-23T01:26:23.7780599Z  ShimGen has successfully created a shim for mingw32-make.exe
+2025-04-23T01:26:23.9508157Z  ShimGen has successfully created a shim for ninja.exe
+2025-04-23T01:26:24.1200050Z  ShimGen has successfully created a shim for nm.exe
+2025-04-23T01:26:24.2935039Z  ShimGen has successfully created a shim for objcopy.exe
+2025-04-23T01:26:24.4801590Z  ShimGen has successfully created a shim for objdump.exe
+2025-04-23T01:26:24.6500602Z  ShimGen has successfully created a shim for pexports.exe
+2025-04-23T01:26:24.8235422Z  ShimGen has successfully created a shim for ranlib.exe
+2025-04-23T01:26:24.9946412Z  ShimGen has successfully created a shim for readelf.exe
+2025-04-23T01:26:25.1664491Z  ShimGen has successfully created a shim for size.exe
+2025-04-23T01:26:25.3400193Z  ShimGen has successfully created a shim for strings.exe
+2025-04-23T01:26:25.5128119Z  ShimGen has successfully created a shim for strip.exe
+2025-04-23T01:26:25.6839351Z  ShimGen has successfully created a shim for unix2dos.exe
+2025-04-23T01:26:25.8999507Z  ShimGen has successfully created a shim for unix2mac.exe
+2025-04-23T01:26:26.0683344Z  ShimGen has successfully created a shim for widl.exe
+2025-04-23T01:26:26.2394906Z  ShimGen has successfully created a shim for windmc.exe
+2025-04-23T01:26:26.4124008Z  ShimGen has successfully created a shim for windres.exe
+2025-04-23T01:26:26.5853512Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-c++.exe
+2025-04-23T01:26:26.7590921Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-g++.exe
+2025-04-23T01:26:26.9334469Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gcc-12.2.0.exe
+2025-04-23T01:26:27.1013573Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gcc-ar.exe
+2025-04-23T01:26:27.2719454Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gcc-nm.exe
+2025-04-23T01:26:27.4438615Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gcc-ranlib.exe
+2025-04-23T01:26:27.6180011Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gcc.exe
+2025-04-23T01:26:27.7905864Z  ShimGen has successfully created a shim for x86_64-w64-mingw32-gfortran.exe
+2025-04-23T01:26:28.1877588Z  ShimGen has successfully created a shim for python.exe
+2025-04-23T01:26:28.3823831Z  ShimGen has successfully created a shim for pythonw.exe
+2025-04-23T01:26:28.7954885Z  ShimGen has successfully created a shim for cc1.exe
+2025-04-23T01:26:29.1966728Z  ShimGen has successfully created a shim for cc1obj.exe
+2025-04-23T01:26:29.6403061Z  ShimGen has successfully created a shim for cc1objplus.exe
+2025-04-23T01:26:30.1543012Z  ShimGen has successfully created a shim for cc1plus.exe
+2025-04-23T01:26:30.3364326Z  ShimGen has successfully created a shim for collect2.exe
+2025-04-23T01:26:30.7459844Z  ShimGen has successfully created a shim for f951.exe
+2025-04-23T01:26:30.9170592Z  ShimGen has successfully created a shim for g++-mapper-server.exe
+2025-04-23T01:26:31.0898213Z  ShimGen has successfully created a shim for lto-wrapper.exe
+2025-04-23T01:26:31.4857704Z  ShimGen has successfully created a shim for lto1.exe
+2025-04-23T01:26:31.6577533Z  ShimGen has successfully created a shim for fixincl.exe
+2025-04-23T01:26:31.8299874Z  ShimGen has successfully created a shim for gengtype.exe
+2025-04-23T01:26:32.0052884Z  ShimGen has successfully created a shim for ar.exe
+2025-04-23T01:26:32.1791326Z  ShimGen has successfully created a shim for as.exe
+2025-04-23T01:26:32.3503634Z  ShimGen has successfully created a shim for dlltool.exe
+2025-04-23T01:26:32.5246314Z  ShimGen has successfully created a shim for ld.bfd.exe
+2025-04-23T01:26:32.7015456Z  ShimGen has successfully created a shim for ld.exe
+2025-04-23T01:26:32.8749129Z  ShimGen has successfully created a shim for nm.exe
+2025-04-23T01:26:33.0442302Z  ShimGen has successfully created a shim for objcopy.exe
+2025-04-23T01:26:33.2180871Z  ShimGen has successfully created a shim for objdump.exe
+2025-04-23T01:26:33.3911955Z  ShimGen has successfully created a shim for ranlib.exe
+2025-04-23T01:26:33.5635719Z  ShimGen has successfully created a shim for readelf.exe
+2025-04-23T01:26:33.7371705Z  ShimGen has successfully created a shim for strip.exe
+2025-04-23T01:26:33.7737883Z  The upgrade of mingw was successful.
+2025-04-23T01:26:33.7741953Z   Deployed to 'C:\ProgramData\chocolatey\lib\mingw\tools\install'
+2025-04-23T01:26:33.8511838Z 
+2025-04-23T01:26:33.8512215Z Chocolatey upgraded 1/1 packages. 
+2025-04-23T01:26:33.8515395Z  See the log for details (C:\ProgramData\chocolatey\logs\chocolatey.log).
+2025-04-23T01:26:33.8521787Z 
+2025-04-23T01:26:33.8522840Z Enjoy using Chocolatey? Explore more amazing features to take your
+2025-04-23T01:26:33.8523435Z experience to the next level at
+2025-04-23T01:26:33.8523856Z  https://chocolatey.org/compare
+2025-04-23T01:26:34.0257950Z ##[group]Run New-Variable os -Value 'Windows' -Option Constant
+2025-04-23T01:26:34.0258367Z [36;1mNew-Variable os -Value 'Windows' -Option Constant[0m
+2025-04-23T01:26:34.0258633Z [36;1m[0m
+2025-04-23T01:26:34.0258897Z [36;1mNew-Variable linux_host -Value ($os -eq 'Linux') -Option Constant[0m
+2025-04-23T01:26:34.0259307Z [36;1mNew-Variable cygwin_host -Value ('0' -eq '1') -Option Constant[0m
+2025-04-23T01:26:34.0259771Z [36;1mNew-Variable windows_host -Value ($os -eq 'Windows' -and !$cygwin_host) -Option Constant[0m
+2025-04-23T01:26:34.0260127Z [36;1m[0m
+2025-04-23T01:26:34.0260340Z [36;1mNew-Variable cc -Value ('1' -eq '1') -Option Constant[0m
+2025-04-23T01:26:34.0260632Z [36;1m[0m
+2025-04-23T01:26:34.0260796Z [36;1mfunction Link-Exe {[0m
+2025-04-23T01:26:34.0261025Z [36;1m    param([0m
+2025-04-23T01:26:34.0261214Z [36;1m        [Parameter(Mandatory=$true)][0m
+2025-04-23T01:26:34.0261449Z [36;1m        [string] $Exe,[0m
+2025-04-23T01:26:34.0261667Z [36;1m        [Parameter(Mandatory=$true)][0m
+2025-04-23T01:26:34.0261897Z [36;1m        [string] $LinkName[0m
+2025-04-23T01:26:34.0262088Z [36;1m    )[0m
+2025-04-23T01:26:34.0262238Z [36;1m[0m
+2025-04-23T01:26:34.0262404Z [36;1m    $exe_path = (Get-Command $Exe).Path[0m
+2025-04-23T01:26:34.0262786Z [36;1m    $link_dir = if ($script:windows_host) { Split-Path $exe_path } else { '/usr/local/bin' }[0m
+2025-04-23T01:26:34.0263245Z [36;1m    $link_name = if ($script:windows_host) { "$LinkName.exe" } else { $LinkName }[0m
+2025-04-23T01:26:34.0263721Z [36;1m    $link_path = if ($script:cygwin_host) { "$link_dir/$link_name" } else { Join-Path $link_dir $link_name }[0m
+2025-04-23T01:26:34.0264140Z [36;1m    echo "Creating link $link_path -> $exe_path"[0m
+2025-04-23T01:26:34.0264404Z [36;1m    if ($script:linux_host) {[0m
+2025-04-23T01:26:34.0264657Z [36;1m        sudo ln -f -s $exe_path $link_path[0m
+2025-04-23T01:26:34.0264919Z [36;1m    } elseif ($script:cygwin_host) {[0m
+2025-04-23T01:26:34.0265160Z [36;1m        ln.exe -f -s $exe_path $link_path[0m
+2025-04-23T01:26:34.0265408Z [36;1m    } elseif ($script:windows_host) {[0m
+2025-04-23T01:26:34.0265769Z [36;1m        New-Item -ItemType HardLink -Path $link_path -Value $exe_path -Force | Out-Null[0m
+2025-04-23T01:26:34.0266119Z [36;1m    }[0m
+2025-04-23T01:26:34.0266263Z [36;1m}[0m
+2025-04-23T01:26:34.0266392Z [36;1m[0m
+2025-04-23T01:26:34.0266530Z [36;1mif ($cc) {[0m
+2025-04-23T01:26:34.0266713Z [36;1m    Link-Exe 'x86_64-w64-mingw32-gcc' cc[0m
+2025-04-23T01:26:34.0266964Z [36;1m    Link-Exe 'x86_64-w64-mingw32-g++' c++[0m
+2025-04-23T01:26:34.0267175Z [36;1m}[0m
+2025-04-23T01:26:34.0300316Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2025-04-23T01:26:34.0300634Z ##[endgroup]
+2025-04-23T01:26:34.3610836Z Creating link C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\cc.exe -> C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-gcc.exe
+2025-04-23T01:26:34.3658605Z Creating link C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\c++.exe -> C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin\x86_64-w64-mingw32-g++.exe
+2025-04-23T01:26:34.4220946Z ##[group]Run New-Variable cygwin_host -Value ('0' -eq '1') -Option Constant
+2025-04-23T01:26:34.4221416Z [36;1mNew-Variable cygwin_host -Value ('0' -eq '1') -Option Constant[0m
+2025-04-23T01:26:34.4221812Z [36;1mNew-Variable hardlinks -Value ('0' -eq '1') -Option Constant[0m
+2025-04-23T01:26:34.4222096Z [36;1m[0m
+2025-04-23T01:26:34.4222272Z [36;1mif ($cygwin_host -and $hardlinks) {[0m
+2025-04-23T01:26:34.4222507Z [36;1m    echo @'[0m
+2025-04-23T01:26:34.4222699Z [36;1mwhile IFS= read -d '' -r link_path; do[0m
+2025-04-23T01:26:34.4223032Z [36;1m    dest_path="$( readlink --canonicalize-existing -- "$link_path" )"[0m
+2025-04-23T01:26:34.4223359Z [36;1m    dest_ext=".${dest_path##*.}"[0m
+2025-04-23T01:26:34.4223625Z [36;1m    [ "$dest_ext" == ".$dest_path" ] && dest_ext=[0m
+2025-04-23T01:26:34.4223869Z [36;1m    link_ext=".${link_path##*.}"[0m
+2025-04-23T01:26:34.4224110Z [36;1m    [ "$link_ext" == ".$link_path" ] && link_ext=[0m
+2025-04-23T01:26:34.4224423Z [36;1m    echo "Removing symlink $link_path" && rm -f -- "$link_path"[0m
+2025-04-23T01:26:34.4224749Z [36;1m    [ "$link_ext" != "$dest_ext" ] && echo "${PATHEXT//\;/[0m
+2025-04-23T01:26:34.4225196Z [36;1m}" | grep -q --ignore-case --line-regexp -F -- "$dest_ext" && link_path="$link_path$dest_ext"[0m
+2025-04-23T01:26:34.4225687Z [36;1m    echo "Creating hardlink $link_path -> $dest_path" && ln -- "$dest_path" "$link_path"[0m
+2025-04-23T01:26:34.4226062Z [36;1mdone < <( find /usr/local/bin /usr/bin \[0m
+2025-04-23T01:26:34.4226309Z [36;1m               -type l '-(' \[0m
+2025-04-23T01:26:34.4226547Z [36;1m               -path /usr/local/bin/cc -o \[0m
+2025-04-23T01:26:34.4226802Z [36;1m               -path /usr/local/bin/c++ \[0m
+2025-04-23T01:26:34.4227031Z [36;1m               '-)' -print0 )[0m
+2025-04-23T01:26:34.4227318Z [36;1m'@ | & bash.exe --login -o errexit -o nounset -o pipefail -o igncr[0m
+2025-04-23T01:26:34.4227598Z [36;1m}[0m
+2025-04-23T01:26:34.4258198Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2025-04-23T01:26:34.4258511Z ##[endgroup]
+2025-04-23T01:26:34.7362101Z ##[group]Run dir
+2025-04-23T01:26:34.7362347Z [36;1mdir[0m
+2025-04-23T01:26:34.7394250Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2025-04-23T01:26:34.7394557Z ##[endgroup]
+2025-04-23T01:26:35.0202211Z 
+2025-04-23T01:26:35.0209236Z     Directory: D:\a\windows-est-clock\windows-est-clock
+2025-04-23T01:26:35.0209730Z 
+2025-04-23T01:26:35.0212144Z [32;1mMode   [0m[32;1m              LastWriteTime[0m [32;1;3m        Length[0m[32;1m Name[0m
+2025-04-23T01:26:35.0212996Z [32;1m----   [0m [32;1m             -------------[0m [32;1m        ------[0m [32;1m----[0m
+2025-04-23T01:26:35.1084531Z d----           4/23/2025  1:25 AM                [44;1m.github[0m
+2025-04-23T01:26:35.1089475Z d----           4/23/2025  1:25 AM                [44;1mdocs[0m
+2025-04-23T01:26:35.1124499Z -a---           4/23/2025  1:25 AM            304 .gitattributes
+2025-04-23T01:26:35.1127511Z -a---           4/23/2025  1:25 AM            534 .gitignore
+2025-04-23T01:26:35.1130552Z -a---           4/23/2025  1:25 AM           1597 [32;1mbuild.bat[0m
+2025-04-23T01:26:35.1133181Z -a---           4/23/2025  1:25 AM           1946 CODE_OF_CONDUCT.md
+2025-04-23T01:26:35.1135717Z -a---           4/23/2025  1:25 AM           3913 CONTRIBUTING.md
+2025-04-23T01:26:35.1138916Z -a---           4/23/2025  1:25 AM           3112 [32;1mcreate_release.bat[0m
+2025-04-23T01:26:35.1141716Z -a---           4/23/2025  1:25 AM           1098 LICENSE
+2025-04-23T01:26:35.1144452Z -a---           4/23/2025  1:25 AM          18799 main.cpp
+2025-04-23T01:26:35.1147154Z -a---           4/23/2025  1:25 AM           6060 README.md
+2025-04-23T01:26:35.1149830Z -a---           4/23/2025  1:25 AM            425 resource.h
+2025-04-23T01:26:35.1152520Z -a---           4/23/2025  1:25 AM           1295 resource.rc
+2025-04-23T01:26:35.1155295Z -a---           4/23/2025  1:25 AM          67646 windows-est-clock.ico
+2025-04-23T01:26:35.1178291Z 
+2025-04-23T01:26:35.1708561Z ##[group]Run build.bat
+2025-04-23T01:26:35.1708831Z [36;1mbuild.bat[0m
+2025-04-23T01:26:35.1726564Z shell: C:\Windows\system32\cmd.EXE /D /E:ON /V:OFF /S /C "CALL "{0}""
+2025-04-23T01:26:35.1726882Z ##[endgroup]
+2025-04-23T01:26:35.1849782Z Building EST Clock...
+2025-04-23T01:26:35.1858179Z Compiling resource file...
+2025-04-23T01:26:37.9557992Z Compiling release build...
+2025-04-23T01:26:50.9916978Z Compiling debug build...
+2025-04-23T01:26:52.3265773Z Build completed successfully!
+2025-04-23T01:26:52.3267762Z Release build: build\windows-est-clock-portable.exe
+2025-04-23T01:26:52.3270221Z Debug build: build\est_clock_debug.exe
+2025-04-23T01:26:52.3390913Z ##[group]Run dir build
+2025-04-23T01:26:52.3391182Z [36;1mdir build[0m
+2025-04-23T01:26:52.3422506Z shell: C:\Program Files\PowerShell\7\pwsh.EXE -command ". '{0}'"
+2025-04-23T01:26:52.3422821Z ##[endgroup]
+2025-04-23T01:26:52.6160280Z 
+2025-04-23T01:26:52.6166409Z     Directory: D:\a\windows-est-clock\windows-est-clock\build
+2025-04-23T01:26:52.6166710Z 
+2025-04-23T01:26:52.6168676Z [32;1mMode   [0m[32;1m              LastWriteTime[0m[32;1m         Length[0m[32;1m Name[0m
+2025-04-23T01:26:52.6169517Z [32;1m----   [0m [32;1m             -------------[0m [32;1m        ------[0m [32;1m----[0m
+2025-04-23T01:26:52.6280157Z -a---           4/23/2025  1:26 AM         181938 [32;1mest_clock_debug.exe[0m
+2025-04-23T01:26:52.6287060Z -a---           4/23/2025  1:26 AM          68824 resource.res
+2025-04-23T01:26:52.6291823Z -a---           4/23/2025  1:26 AM         145228 [32;1mwindows-est-clock-portable.exe[0m
+2025-04-23T01:26:52.6317180Z 
+2025-04-23T01:26:52.6964568Z ##[group]Run softprops/action-gh-release@v1
+2025-04-23T01:26:52.6964882Z with:
+2025-04-23T01:26:52.6965077Z   files: build/windows-est-clock-portable.exe
+2025-04-23T01:26:52.6965311Z   draft: false
+2025-04-23T01:26:52.6965467Z   prerelease: false
+2025-04-23T01:26:52.6965635Z   generate_release_notes: true
+2025-04-23T01:26:52.6965991Z   token: ***
+2025-04-23T01:26:52.6966140Z env:
+2025-04-23T01:26:52.6966359Z   GITHUB_TOKEN: ***
+2025-04-23T01:26:52.6966523Z ##[endgroup]
+2025-04-23T01:26:53.1433678Z 👩‍🏭 Creating new GitHub release for tag v1.0.0...
+2025-04-23T01:26:53.2435584Z ⚠️ GitHub release failed with status: 403
+2025-04-23T01:26:53.2436087Z undefined
+2025-04-23T01:26:53.2436356Z retrying... (2 retries remaining)
+2025-04-23T01:26:53.2869229Z 👩‍🏭 Creating new GitHub release for tag v1.0.0...
+2025-04-23T01:26:53.3852964Z ⚠️ GitHub release failed with status: 403
+2025-04-23T01:26:53.3853297Z undefined
+2025-04-23T01:26:53.3853531Z retrying... (1 retries remaining)
+2025-04-23T01:26:53.4416340Z 👩‍🏭 Creating new GitHub release for tag v1.0.0...
+2025-04-23T01:26:53.5279272Z ⚠️ GitHub release failed with status: 403
+2025-04-23T01:26:53.5279628Z undefined
+2025-04-23T01:26:53.5279805Z retrying... (0 retries remaining)
+2025-04-23T01:26:53.5280101Z ❌ Too many retries. Aborting...
+2025-04-23T01:26:53.5304292Z ##[error]Too many retries.
+2025-04-23T01:26:53.5533165Z Post job cleanup.
+2025-04-23T01:26:53.7380066Z [command]"C:\Program Files\Git\bin\git.exe" version
+2025-04-23T01:26:53.7637873Z git version 2.49.0.windows.1
+2025-04-23T01:26:53.7712365Z Temporarily overriding HOME='D:\a\_temp\d835b1d7-011a-4edd-8693-99f1c6a7f271' before making global git config changes
+2025-04-23T01:26:53.7713506Z Adding repository directory to the temporary git global config as a safe directory
+2025-04-23T01:26:53.7721129Z [command]"C:\Program Files\Git\bin\git.exe" config --global --add safe.directory D:\a\windows-est-clock\windows-est-clock
+2025-04-23T01:26:53.8043070Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp core\.sshCommand
+2025-04-23T01:26:53.8325594Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :\""
+2025-04-23T01:26:54.2806584Z [command]"C:\Program Files\Git\bin\git.exe" config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-04-23T01:26:54.3012100Z http.https://github.com/.extraheader
+2025-04-23T01:26:54.3051618Z [command]"C:\Program Files\Git\bin\git.exe" config --local --unset-all http.https://github.com/.extraheader
+2025-04-23T01:26:54.3291188Z [command]"C:\Program Files\Git\bin\git.exe" submodule foreach --recursive "sh -c \"git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :\""
+2025-04-23T01:26:54.8288918Z Cleaning up orphan processes

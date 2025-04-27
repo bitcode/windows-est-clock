@@ -1,18 +1,15 @@
-name: Build and Release
+name: Main Branch CI
 
 on:
   push:
-    tags:
-      - 'v*'
-  # Allow manual triggering from the Actions tab
-  workflow_dispatch:
+    branches: [ main ]
 
 # Set permissions for the GITHUB_TOKEN
 permissions:
   contents: write  # This is required for creating releases
 
 jobs:
-  build-test-release:
+  build-test-prerelease:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -46,38 +43,37 @@ jobs:
           ./Debug/time_zone_conversion_tests.exe
         shell: bash
 
-      - name: Get Version from Tag
-        id: get_version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      - name: Get current date
+        id: date
+        run: echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
         shell: bash
-        if: startsWith(github.ref, 'refs/tags/')
 
-      - name: Rename Executable with Version
-        run: |
-          copy build\windows-est-clock-portable.exe "build\windows-est-clock-${{ steps.get_version.outputs.VERSION }}.exe"
-        shell: cmd
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Get short SHA
+        id: sha
+        run: echo "SHA=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        shell: bash
 
-      - name: Create Release
-        id: create_release
+      - name: Create Pre-release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: |
-            build/windows-est-clock-${{ steps.get_version.outputs.VERSION }}.exe
-            build/windows-est-clock-portable.exe
+          files: build/windows-est-clock-portable.exe
           draft: false
-          prerelease: false
-          generate_release_notes: true
-          name: EST Clock v${{ steps.get_version.outputs.VERSION }}
+          prerelease: true
+          tag_name: nightly-${{ steps.date.outputs.DATE }}-${{ steps.sha.outputs.SHA }}
+          name: Development Build ${{ steps.date.outputs.DATE }}
           body: |
-            ## EST Clock v${{ steps.get_version.outputs.VERSION }}
-
+            ## Development Build ${{ steps.date.outputs.DATE }}
+            
+            This is an automated development build from the latest code in the main branch.
+            
+            **Commit:** ${{ steps.sha.outputs.SHA }}
+            
             ### Installation
             1. Download the `windows-est-clock-portable.exe` file
             2. Double-click to run (no installation required)
-
-            ### Changes in this version
-            See release notes above for details.
+            
+            ### Warning
+            This is a development build and may contain bugs or unfinished features.
+            For stable releases, please use the latest versioned release.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

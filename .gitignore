@@ -15,6 +15,9 @@
 *.a
 *.out
 *.app
+*.res
+*.o
+*.d
 
 # Build artifacts
 build/
@@ -32,6 +35,22 @@ x86/
 *.cache
 *.exp
 tmp-git-commit-msg.txt
+
+# CMake artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+*.cmake
+tests/build/
+_deps/
+Testing/
+
+# GoogleTest artifacts
+googletest-*/
+gtest/
+gmock/
 
 # System files
 .DS_Store
