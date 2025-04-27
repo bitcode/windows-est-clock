@@ -7,6 +7,10 @@ on:
   # Allow manual triggering from the Actions tab
   workflow_dispatch:
 
+# Set permissions for the GITHUB_TOKEN
+permissions:
+  contents: write  # This is required for creating releases
+
 jobs:
   build:
     runs-on: windows-latest
