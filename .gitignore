@@ -25,6 +25,8 @@ Debug/
 Release/
 x64/
 x86/
+bin/
+out/
 *.obj
 *.pdb
 *.ilk
@@ -34,7 +36,9 @@ x86/
 *.bsc
 *.cache
 *.exp
-tmp-git-commit-msg.txt
+docs/temp_commit_msg.txt
+*.aps
+*.ncb
 
 # CMake artifacts
 CMakeFiles/
@@ -46,6 +50,10 @@ Makefile
 tests/build/
 _deps/
 Testing/
+DartConfiguration.tcl
+install_manifest.txt
+compile_commands.json
+.cmake/
 
 # GoogleTest artifacts
 googletest-*/
@@ -62,6 +70,9 @@ Thumbs.db
 *.tlog
 *.sass-cache
 *.jfm
+LastTest.log
+LastTestsFailed.log
+LastCoverageResults.log
 
 # Local development
 *.local

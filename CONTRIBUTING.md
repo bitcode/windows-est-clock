@@ -54,23 +54,48 @@ C:\mingw64\bin\g++.exe -g -DUNICODE -D_UNICODE main.cpp resource.res -o est_cloc
 
 ### Running Tests
 
-The project includes comprehensive tests for time conversion functionality:
+The project includes comprehensive tests for time conversion functionality. The easiest way to run all tests is using the provided test runner script:
 
-```bash
+```powershell
+cd tests
+.\run_tests_with_resync.ps1
+```
+
+This script will:
+- Configure the tests with CMake
+- Build all test executables
+- Run all tests using CTest
+- Resynchronize the system time after tests
+
+Alternatively, you can build and run tests manually:
+
+```powershell
 cd tests
 mkdir -p build && cd build
 cmake ..
 cmake --build . --config Debug
-./Debug/time_conversion_tests.exe
-./Debug/time_zone_conversion_tests.exe
+ctest -C Debug -V
 ```
 
 ### Test Structure
 
 - `time_conversion_tests.cpp`: Basic time conversion tests
 - `time_zone_conversion_tests.cpp`: Tests for different time zone scenarios
+- `system_time_zone_tests.cpp`: Tests for system time zone changes
 - `globals.cpp`: Global variables for testing
 - `time_conversion_mock.cpp`: Mock implementations for testing
+- `run_tests_with_resync.ps1`: PowerShell script to run tests with time resynchronization
+- `run_tests_with_resync.bat`: Batch script to run tests with time resynchronization
+
+### Administrator Privileges for System Time Zone Tests
+
+Some tests in `system_time_zone_tests.cpp` require administrator privileges to modify system time and time zone settings. When running these tests:
+
+1. Run PowerShell or Command Prompt as Administrator
+2. Navigate to the test directory
+3. Run the tests using the test runner script or directly
+
+If you run these tests without administrator privileges, they will automatically skip the tests that require system changes and display a warning message.
 
 ### Adding New Tests
 
@@ -78,7 +103,11 @@ When adding new functionality, please include appropriate tests:
 
 1. For basic functionality, add tests to `time_conversion_tests.cpp`
 2. For time zone specific functionality, add tests to `time_zone_conversion_tests.cpp`
-3. If needed, update the mock implementations in `time_conversion_mock.cpp`
+3. For tests that require system changes, add to `system_time_zone_tests.cpp`
+4. Make sure to handle the case where administrator privileges are not available
+5. If needed, update the mock implementations in `time_conversion_mock.cpp`
+
+For more detailed information about the test suite, see [tests/README.md](tests/README.md).
 
 ## Debugging
 
@@ -127,13 +156,9 @@ We follow a structured branching strategy:
    ```
 2. Make your changes, following the code style guidelines.
 3. Test your changes thoroughly, including running the time conversion tests.
-   ```bash
+   ```powershell
    cd tests
-   mkdir -p build && cd build
-   cmake ..
-   cmake --build . --config Debug
-   ./Debug/time_conversion_tests.exe
-   ./Debug/time_zone_conversion_tests.exe
+   .\run_tests_with_resync.ps1
    ```
 4. Update documentation if necessary.
 5. Commit your changes with a descriptive message.

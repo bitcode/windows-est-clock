@@ -52,19 +52,12 @@ jobs:
         shell: bash
         if: startsWith(github.ref, 'refs/tags/')
 
-      - name: Rename Executable with Version
-        run: |
-          copy build\windows-est-clock-portable.exe "build\windows-est-clock-${{ steps.get_version.outputs.VERSION }}.exe"
-        shell: cmd
-        if: startsWith(github.ref, 'refs/tags/')
-
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            build/windows-est-clock-${{ steps.get_version.outputs.VERSION }}.exe
             build/windows-est-clock-portable.exe
           draft: false
           prerelease: false

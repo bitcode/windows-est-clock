@@ -44,6 +44,7 @@ Alternatively, you can turn on "Always show all icons in the notification area" 
 - Draggable window positioning
 - Semi-transparent overlay stays on top of other windows
 - Comprehensive test suite for time zone conversions
+- Robust handling of time zone changes, DST transitions, and date boundary crossings
 
 ## Releases
 
@@ -138,14 +139,26 @@ This project uses Windows-specific API functions and requires a compiler that pr
 The project includes comprehensive tests for time conversion functionality:
 
 1. Navigate to the `tests` directory
-2. Run the following commands to build and run the tests:
+2. Use the test runner script to build and run all tests:
+   ```powershell
+   .\run_tests_with_resync.ps1
+   ```
+
+   This script will:
+   - Configure the tests with CMake
+   - Build all test executables
+   - Run all tests using CTest
+   - Resynchronize the system time after tests
+
+3. Alternatively, you can build and run tests manually:
    ```powershell
    mkdir -p build && cd build
    cmake ..
    cmake --build . --config Debug
-   ./Debug/time_conversion_tests.exe
-   ./Debug/time_zone_conversion_tests.exe
+   ctest -C Debug -V
    ```
+
+For more detailed information about the test suite, see [tests/README.md](tests/README.md).
 
 ## Advanced Usage
 
@@ -161,11 +174,18 @@ The project includes comprehensive tests for time conversion functionality:
 - `tests/` - Test suite for time conversion functionality
   - `time_conversion_tests.cpp` - Basic time conversion tests
   - `time_zone_conversion_tests.cpp` - Tests for different time zone scenarios
+  - `system_time_zone_tests.cpp` - Tests for system time zone changes
   - `globals.cpp` - Global variables for testing
   - `time_conversion_mock.cpp` - Mock implementations for testing
+  - `run_tests_with_resync.ps1` - PowerShell script to run tests with time resynchronization
+  - `run_tests_with_resync.bat` - Batch script to run tests with time resynchronization
+  - `README.md` - Detailed documentation for the test suite
 - `docs/` - Documentation
   - `ARCHITECTURE.md` - Detailed architecture documentation
 - `.github/workflows/` - CI/CD pipeline configuration
+  - `pull-request.yml` - Workflow for pull requests
+  - `main.yml` - Workflow for main branch pushes
+  - `release.yml` - Workflow for creating releases
 
 ## Contributing
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
